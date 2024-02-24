@@ -42,7 +42,7 @@ def analyzing_ip(path: object):
             ip2.append(i)
     result = {}
     """ На этом этапе получается два списка, ip1: с валидными адресами
-     и mistake: с ошибочными"""
+     и mistake: с ошибочными адресами"""
     for i in ip2:
         result[i] = result.get(i, 0) + 1
     result1 = list(sorted(result.items(), key=lambda item: item[1], reverse=True))
