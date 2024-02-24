@@ -56,6 +56,6 @@ def analyzing_ip(path: object):
     file2.close()
     return file2
 def main():
-    ...
+    analyzing_ip('log.txt')
 if __name__ == '__main__':
     main()
