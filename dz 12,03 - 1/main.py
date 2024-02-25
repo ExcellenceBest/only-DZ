@@ -111,7 +111,7 @@ class Auto:
         if not price:
             raise EmptyNameError('поле price не может быть пустым')
         if not isinstance(price, float):
-            raise ValidateFormatFloatError('Параметр price должен быть числом округленным до сотых')
+            raise ValidateFormatFloatError('Параметр price должен быть числом округленным до сотых')z
         return price
 
     @staticmethod
