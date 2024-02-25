@@ -37,7 +37,7 @@ class Auto:
                 f'Цвет кузова Авто: {self.color}\n'
                 f'Цена Авто: {self.price}\n'
                 f'Комплектация Авто: {self.equipment}\n'
-                f'Разгон до 100 км\ч,сек: {self.acceleration}')
+                f'Разгон до 100 км/ч,сек: {self.acceleration}')
 
     @staticmethod
     def __validate_mark(mark: str) -> str:
@@ -113,9 +113,9 @@ class Auto:
                                     проверка на тип вводимых данных (число должно быть округлено до десятых)"""
 
         if not acceleration:
-            raise Exception('поле "Разгон до 100 км\ч,сек" не может быть пустым')
+            raise Exception('поле "Разгон до 100 км/ч,сек" не может быть пустым')
         if not isinstance(acceleration, float):
-            raise TypeError('Параметр "Разгон до 100 км\ч,сек" должен быть числом округленным до десятых')
+            raise TypeError('Параметр "Разгон до 100 км/ч,сек" должен быть числом округленным до десятых')
         return acceleration
 
     @staticmethod
@@ -238,6 +238,7 @@ class Point_in_space:
         if not isinstance(designation, str):
             raise TypeError('Параметр designation должен быть строкой')
         return designation.capitalize()
+
     @staticmethod
     def __validate_axis_x(axis_x: float) -> float:
         """Метод для проверки введенной информации в поле axis_x, проверяется на пустое значение,
