@@ -6,6 +6,13 @@
 Реализуйте доступ к отдельным атрибутам класса через методы объекта
 (геттеры и сеттеры), используя декоратор @property и @атрибут.setter."""
 
+from Errors import EmptyNameError
+from Errors import ValidateIntError
+from Errors import ValidateStrError
+from Errors import ValidateFormatStrError
+from Errors import ValidateFormatIntError
+from Errors import ValidateFormatFloatError
+from Errors import ValidateFormatBoolError
 
 class Auto:
     """
@@ -45,14 +52,14 @@ class Auto:
             присутсвие цифр, проверка на тип вводимых данных (строка), а так же на вводимые символы"""
 
         if not mark:
-            raise Exception('поле "Марка Авто" не может быть пустым')
+            raise EmptyNameError('поле "Марка Авто" не может быть пустым')
         if mark.isdigit():
-            raise Exception('В поле "Марка Авто" не может быть цифр')
+            raise ValidateFormatStrError('В поле "Марка Авто" не может быть цифр')
         a = list(filter(lambda x: 48 <= ord(x) <= 1103, mark))
         if len(a) != len(mark):
-            raise Exception('Параметр name должен содержать только символы кириллицы')
+            raise ValidateFormatStrError('Параметр name должен содержать только символы кириллицы')
         if not isinstance(mark, str):
-            raise TypeError('Параметр name должен быть строкой')
+            raise ValidateStrError('Параметр name должен быть строкой')
         return mark.capitalize()
 
     @staticmethod
@@ -61,12 +68,12 @@ class Auto:
             проверка на тип вводимых данных (строка), а так же на вводимые символы"""
 
         if not model:
-            raise Exception('поле "Модель Авто" не может быть пустым')
+            raise EmptyNameError('поле "Модель Авто" не может быть пустым')
         q = list(filter(lambda x: 48 <= ord(x) <= 1103, model))
         if len(q) != len(model):
-            raise Exception('Параметр model должен содержать только символы кириллицы')
+            raise ValidateFormatStrError('Параметр model должен содержать только символы кириллицы')
         if not isinstance(model, str):
-            raise TypeError('Параметр model должен быть строкой')
+            raise ValidateStrError('Параметр model должен быть строкой')
         return model.capitalize()
 
     @staticmethod
@@ -75,11 +82,11 @@ class Auto:
                      тип вводимых данных (целое число), а так же на верный диапазон года выпуска авто"""
 
         if not year_of_production:
-            raise Exception('поле "Год выпуска" не может быть пустым')
+            raise EmptyNameError('поле "Год выпуска" не может быть пустым')
         if not isinstance(year_of_production, int):
-            raise TypeError('Параметр Год выпуска должен быть целочисленным')
+            raise ValidateIntError('Параметр Год выпуска должен быть целочисленным')
         if year_of_production < 2012 or year_of_production > 2024:
-            raise ValueError('Параметр year_of_production должен быть в диапазоне от 2012 до 2024')
+            raise ValidateFormatIntError('Параметр year_of_production должен быть в диапазоне от 2012 до 2024')
         return year_of_production
 
     @staticmethod
@@ -88,12 +95,12 @@ class Auto:
                     проверка на тип вводимых данных (строка), а так же на вводимые символы"""
 
         if not color:
-            raise Exception('поле "цвет Авто" не может быть пустым')
+            raise EmptyNameError('поле "цвет Авто" не может быть пустым')
         q = list(filter(lambda x: 1040 <= ord(x) <= 1103, color))
         if len(q) != len(color):
-            raise Exception('Параметр color должен содержать только символы кириллицы')
+            raise ValidateFormatStrError('Параметр color должен содержать только символы кириллицы')
         if not isinstance(color, str):
-            raise TypeError('Параметр color должен быть строкой')
+            raise ValidateStrError('Параметр color должен быть строкой')
         return color.capitalize()
 
     @staticmethod
@@ -102,9 +109,9 @@ class Auto:
                             проверка на тип вводимых данных (целочисленное значение)"""
 
         if not price:
-            raise Exception('поле price не может быть пустым')
+            raise EmptyNameError('поле price не может быть пустым')
         if not isinstance(price, float):
-            raise TypeError('Параметр price должен быть числом округленным до сотых')
+            raise ValidateFormatFloatError('Параметр price должен быть числом округленным до сотых')z
         return price
 
     @staticmethod
@@ -113,9 +120,9 @@ class Auto:
                                     проверка на тип вводимых данных (число должно быть округлено до десятых)"""
 
         if not acceleration:
-            raise Exception('поле "Разгон до 100 км/ч,сек" не может быть пустым')
+            raise EmptyNameError('поле "Разгон до 100 км/ч,сек" не может быть пустым')
         if not isinstance(acceleration, float):
-            raise TypeError('Параметр "Разгон до 100 км/ч,сек" должен быть числом округленным до десятых')
+            raise ValidateFormatFloatError('Параметр "Разгон до 100 км/ч,сек" должен быть числом округленным до десятых')
         return acceleration
 
     @staticmethod
@@ -124,7 +131,7 @@ class Auto:
         так же на вводимое значение ключа в формате str, а значение ключа"""
 
         if not equipment:
-            raise Exception('поле equipment не может быть пустым')
+            raise EmptyNameError('поле equipment не может быть пустым')
         # q = list(filter(lambda x: 48 <= ord(x) <= 1103, equipment.values()))
         # if len(q) == len(equipment.values()):
         #     raise Exception('Параметр values(второй параметр) должен содержать только символы кириллицы, '
@@ -231,12 +238,12 @@ class Point_in_space:
         """Метод для проверки введенной информации в поле name, проверяется на пустое значение,
                  проверка на тип вводимых данных (строка), а так же проверка на вводимые символы"""
         if not designation:
-            raise Exception('поле designation не может быть пустым')
+            raise EmptyNameError('поле designation не может быть пустым')
         a = list(filter(lambda x: 48 <= ord(x) <= 1103, designation))
         if len(a) != len(designation):
-            raise Exception('Параметр designation может содержать символы кириллицы, цифры и английский алфавит')
+            raise ValidateFormatStrError('Параметр designation может содержать символы кириллицы, цифры и английский алфавит')
         if not isinstance(designation, str):
-            raise TypeError('Параметр designation должен быть строкой')
+            raise ValidateStrError('Параметр designation должен быть строкой')
         return designation.capitalize()
 
     @staticmethod
@@ -245,9 +252,9 @@ class Point_in_space:
                                 проверка на тип вводимых данных (значение с плавающей точкой)"""
 
         if not axis_x:
-            raise Exception('поле "ось х" не может быть пустым')
+            raise EmptyNameError('поле "ось х" не может быть пустым')
         if not isinstance(axis_x, float):
-            raise TypeError('Параметр axis_x должен быть числом')
+            raise ValidateIntError('Параметр axis_x должен быть числом')
         return axis_x
 
     @staticmethod
@@ -256,9 +263,9 @@ class Point_in_space:
                                 проверка на тип вводимых данных (значение с плавающей точкой)"""
 
         if not axis_y:
-            raise Exception('поле "ось y" не может быть пустым')
+            raise EmptyNameError('поле "ось y" не может быть пустым')
         if not isinstance(axis_y, float):
-            raise TypeError('Параметр axis_y должен быть числом')
+            raise ValidateIntError('Параметр axis_y должен быть числом')
         return axis_y
 
     @staticmethod
@@ -267,9 +274,9 @@ class Point_in_space:
                                 проверка на тип вводимых данных (значение с плавающей точкой)"""
 
         if not axis_z:
-            raise Exception('поле "ось z" не может быть пустым')
+            raise EmptyNameError('поле "ось z" не может быть пустым')
         if not isinstance(axis_z, float):
-            raise TypeError('Параметр axis_z должен быть числом')
+            raise ValidateIntError('Параметр axis_z должен быть числом')
         return axis_z
 
     @staticmethod
@@ -277,7 +284,7 @@ class Point_in_space:
         """Метод для проверки введенной информации в поле point_type,
                 проверка на тип вводимых данных (значение True или False)"""
         if not isinstance(point_type, bool):
-            raise TypeError('Параметр point_type должен быть True или False')
+            raise ValidateFormatBoolError('Параметр point_type должен быть True или False')
         return point_type
 
     def __str__(self):
