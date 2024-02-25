@@ -2,7 +2,16 @@
 
 
 class Auto:
-
+    """
+    Класс Авто содержит атрибуты описывающие автомобили, его цвета, марки, модели, характеристики
+    год выпуска, цена и время разгона до 100 км.ч
+     mark, model, year_of_production, color, price, equipment, acceleration.
+    Класс в себе содержит следующие методы:
+        -методы для валидации атрибутов
+        - Validate_атрибут - статик метод
+        - свойства атрибутов @property) для их вывода
+        - сеттеры атрибутов (@атрибут.setter) для изменеия значений атрибутов
+    """
     def __init__(self, mark: str, model: str, year_of_production: int, color: str, price: int, equipment: dict,
                  acceleration: float):
         self.__mark = self.__validate_mark(mark)
@@ -14,6 +23,8 @@ class Auto:
         self.__acceleration = self.__validate_acceleration(acceleration)
 
     def __str__(self):
+        """Метод для вывода инвормации всех значений атрибутов на печать"""
+
         return (f'Марка Авто: {self.mark} \n'
                 f'Модель Авто: {self.model}\n'
                 f'Год выпуска: {self.year_of_production}\n'
@@ -22,8 +33,12 @@ class Auto:
                 f'Комплектация Авто: {self.equipment}\n'
                 f'Разгон до 100 км\ч,сек: {self.acceleration}')
 
+
     @staticmethod
     def __validate_mark(mark: str) -> str:
+        """Метод для проверки введенной информации в поле mark, проверяется на пустое значение,
+            присутсвие цифр, проверка на тип вводимых данных (строка), а так же на вводимые символы"""
+
         if not mark:
             raise Exception('поле "Марка Авто" не может быть пустым')
         if mark.isdigit():
@@ -37,6 +52,9 @@ class Auto:
 
     @staticmethod
     def __validate_model(model: str) -> str:
+        """Метод для проверки введенной информации в поле model, проверяется на пустое значение,
+            проверка на тип вводимых данных (строка), а так же на вводимые символы"""
+
         if not model:
             raise Exception('поле "Модель Авто" не может быть пустым')
         q = list(filter(lambda x: 48 <= ord(x) <= 1103, model))
@@ -47,15 +65,23 @@ class Auto:
         return model.capitalize()
 
     @staticmethod
-    def __validate_year_of_production(year_of_production: int)-> int:
+    def __validate_year_of_production(year_of_production: int) -> int:
+        """Метод для проверки введенной информации в поле year_of_production, проверяется на пустое значение,
+                     тип вводимых данных (целое число)б а так же на верный диапазон года выпуска авто"""
+
         if not year_of_production:
             raise Exception('поле "Год выпуска" не может быть пустым')
         if not isinstance(year_of_production, int):
             raise TypeError('Параметр Год выпуска должен быть целочисленным')
+        if year_of_production < 2012 or year_of_production > 2024:
+            raise ValueError('Параметр year_of_production должен быть в диапазоне от 2012 до 2024')
         return year_of_production
 
     @staticmethod
     def __validate_color(color: str) -> str:
+        """Метод для проверки введенной информации в поле color, проверяется на пустое значение,
+                    проверка на тип вводимых данных (строка), а так же на вводимые символы"""
+
         if not color:
             raise Exception('поле "цвет Авто" не может быть пустым')
         q = list(filter(lambda x: 1040 <= ord(x) <= 1103, color))
@@ -67,6 +93,9 @@ class Auto:
 
     @staticmethod
     def __validate_price(price: int) -> int:
+        """Метод для проверки введенной информации в поле price, проверяется на пустое значение,
+                            проверка на тип вводимых данных (целочисленное значение)"""
+
         if not price:
             raise Exception('поле "Цена Авто" не может быть пустым')
         if not isinstance(price, int):
@@ -75,6 +104,9 @@ class Auto:
 
     @staticmethod
     def __validate_acceleration(acceleration: float) -> float:
+        """Метод для проверки введенной информации в поле acceleration, проверяется на пустое значение,
+                                    проверка на тип вводимых данных (float, число с плавающей точкой)"""
+
         if not acceleration:
             raise Exception('поле "Разгон до 100 км\ч,сек" не может быть пустым')
         if not isinstance(acceleration, float):
@@ -83,10 +115,12 @@ class Auto:
 
     @staticmethod
     def __validate_equipment(equipment: dict) -> dict:
+        """Метод для проверки введенной информации в поле equipment, проверяется на пустое значение"""
+
         if not equipment:
             raise Exception('поле "Комплектация" не может быть пустым')
         #if not isinstance(equipment.keys() or equipment.values(), str or int or float):
-         #   raise TypeError('Параметр  должен быть строкой')
+         #   raise TypeError('Параметр  должен быть строкой')  в разработке
         return equipment
 
     @property
