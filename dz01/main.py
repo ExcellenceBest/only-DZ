@@ -15,24 +15,25 @@
  Строка лога не обязательно содержит ip, но в логах обязательно содержится
 хотя бы один ip.
 __________Решение___________"""
-
 import re
 
-def analyzing_ip(path: object):
+def get_ip_fromLog(path: str) -> list:
     """
-    Функция для обработки лог файлов
-    :param path: str
-    на входе текстовый файл логов содержащий в себе айпи адреса,
-    верные и не верные
-    :return: новый файл содержащий в себе отсортированный список валидных
-    ip адресов
-    c количеством повторов
+    Функция для обработки текстовых лог файлов.
+    :param path: str - на входе текстовый файл логов содержащий в себе айпи адреса.
+    :return: list - список содержащий в себе IP адреса
     """
-    with open('log.txt', 'r', encoding='utf-8') as file:
+    with open(path, 'r', encoding='utf-8') as file:
         ip = file.read()
+        global ip1
         ip1 = re.findall(r"([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})", ip)
         file.close()
-        mistake = []
+        return ip1
+
+def analyzing_ip(ip1: list) -> list:
+    """Аналитическая функция, принимает список адресов ip1: list, обрабатывает его, сортирует
+    и возвращает новый список ip2 с корректными адресами и количеством вхождений в первый список соответственно."""
+    mistake = []
     ip2 = []
     for i in ip1:
         if '.0.' in i or i[len(i) - 1] == "0" and i[len(i) - 2] == '.':
@@ -41,21 +42,29 @@ def analyzing_ip(path: object):
         if i not in mistake:
             ip2.append(i)
     result = {}
-    """ На этом этапе получается два списка, ip1: с валидными адресами
-     и mistake: с ошибочными адресами"""
     for i in ip2:
         result[i] = result.get(i, 0) + 1
+        global result1
     result1 = list(sorted(result.items(), key=lambda item: item[1], reverse=True))
-    """ Далее список ip1 проверяется на повторяемость адресов, сортируется 
-     и результат записывается в новый файл"""
+    return result1
+
+def processing_ip(result1: list) -> None:
+    """Функция для записи результата в новый файл(file2),
+    запись производиться в два столбца, функция принимает список и ничего не возвращает.
+    :param result1:
+    :return: None
+    """
     result2 = ''
     for i in result1:
         result2 += str(i[0] + '   ' + str(i[1])) + '\n'
     file2 = open('file2', 'w', encoding='utf-8')
     file2.write(result2)
     file2.close()
-    return file2
+
+
 def main():
-    analyzing_ip('log.txt')
+    get_ip_fromLog('log.txt')
+    analyzing_ip(ip1)
+    processing_ip(result1)
 if __name__ == '__main__':
-    main()
+     main()
