@@ -25,6 +25,7 @@ class ConverterTemp:
         self.__temp = self.validate_temp(temp)
 
 
+
     @staticmethod
     def validate_temp(__temp):
         if __temp < -273.5:
@@ -62,18 +63,19 @@ class ConverterTemp:
         return f'{round(float(temp_K),2)} по Кельвину'
 
 
-
 a = ConverterTemp('body', 36.6)
 print(a.converting_in_K_from_C(50))
-print(a.convertingIn_K_from_F(60))
-print(a.convertingIn_F_from_K(300))
+print(a.converting_in_F_from_K(60))
+print(a.converting_in_F_from_K(300))
+print(a.converting_in_C_from_F(333))
 
 
 
 
-"""Задание 2.  Создайте класс для перевода длинны из метрической в 
-имперскую(английскую) систему. У класса должно быть несколько статических методов
-Дюйм (inch) = 25,4 мм (2,54 см)
-Фут (foot) = 0,3048 м (или 12 дюймов)
-Ярд (yard) = 0,9144 м (или 3 фута)
-Миля (mile) = 1,609 км (или 1,760 ярда)"""
+# """Задание 2.  Создайте класс для перевода длинны из метрической в
+# имперскую(английскую) систему. У класса должно быть несколько статических методов
+# Дюйм (inch) = 25,4 мм (2,54 см)
+# Фут (foot) = 0,3048 м (или 12 дюймов)
+# Ярд (yard) = 0,9144 м (или 3 фута)
+# Миля (mile) = 1,609 км (или 1,760 ярда)"""
+#
