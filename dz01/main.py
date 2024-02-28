@@ -63,8 +63,10 @@ def processing_ip(result1: list) -> None:
 
 
 def main():
+
     get_ip_fromLog('log.txt')
     analyzing_ip(ip1)
     processing_ip(result1)
+
 if __name__ == '__main__':
      main()
