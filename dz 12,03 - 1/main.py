@@ -49,7 +49,7 @@ class Auto:
                 f'Год выпуска: {self.year_of_production}\n'
                 f'Цвет кузова Авто: {self.color}\n'
                 f'Цена Авто: {self.price}\n'
-                f'Комплектация Авто: {self.transmission}\n'
+                f'Коробка передач: {self.transmission}\n'
                 f'Разгон до 100 км/ч,сек: {self.acceleration}')
 
     @staticmethod
@@ -62,7 +62,7 @@ class Auto:
         if not mark:
             raise EmptyNameError('Параметр "Марка Авто" не может быть пустым')
         if mark.isdigit():
-            raise ValidateFormatStrError('Параметр "Марка Авто" не может быть цифр')
+            raise ValidateFormatStrError('Параметр "Марка Авто" не может содержать цифры')
         a = list(filter(lambda x: 48 <= ord(x) <= 1103, mark))
         if len(a) != len(mark):
             raise ValidateFormatStrError('Параметр "Марка Авто" должен содержать только символы кириллицы')
@@ -134,7 +134,7 @@ class Auto:
     @staticmethod
     def __validate_transmission(transmission: str) -> str:
         """Метод для проверки введенной информации в Параметр "Коробка передач" проверяется на пустое значение,
-        так же на вводимое тип данных"""
+        так же на вводимый тип данных"""
 
         if not isinstance(transmission, str):
             raise ValidateStrError('Параметр "Коробка передач" должен быть строкой')
@@ -220,7 +220,7 @@ class Point_in_space:
     """Класс "Точка в пространстве"
      Класс описывает объект в виде точки в пространстве которая имеет свои координаты
      по трем осям, x, y, z, при помощи методов можно управлять положением точки в пространстве.
-     методы позволяют менять ее координаты, а так же получать информацию о ее текущем местоположении
+     Методы позволяют менять ее координаты, а так же получать информацию о ее текущем местоположении
      Атрибуты:
         - designation - "Обозначение"
         - axis_x, axis_y, axis_z - оси x, y, z
@@ -238,8 +238,9 @@ class Point_in_space:
 
     @staticmethod
     def __validate_designation(designation: str):
-        """Метод для проверки введенной информации в поле name, проверяется на пустое значение,
+        """Метод для проверки введенной информации в Параметр "обозначение" проверяется на пустое значение,
                  проверка на тип вводимых данных (строка), а так же проверка на вводимые символы"""
+
         if not isinstance(designation, str):
             raise ValidateStrError('Параметр "обозначение"  должен быть строкой')
         if not designation:
@@ -251,8 +252,9 @@ class Point_in_space:
 
     @staticmethod
     def __validate_axis(axis: float) -> float:
-        """Метод для проверки введенной информации в поле ось, проверяется на пустое значение,
-                                проверка на тип вводимых данных (значение с плавающей точкой)"""
+        """Метод для проверки введенной информации в Параметр "ось" проверяется на пустое значение,
+                                проверка на тип вводимых данных (значение с плавающей точкой)
+                                для всех осей"""
         if not isinstance(axis, float):
             raise ValidateIntError('Параметр "ось" должен быть числом округленным до десятых')
         if not axis:
@@ -302,7 +304,4 @@ class Point_in_space:
 
 
 star = Point_in_space('sun', 1100.1, 245.9, 1186.7)
-star.axis_x = 3000.8
-print(star.axis_x)
-star.axis_y = 5000.9
-print(star.axis_y)
+print(star)
