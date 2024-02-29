@@ -12,44 +12,49 @@ from Errors import ValidateStrError
 from Errors import ValidateFormatStrError
 from Errors import ValidateFormatIntError
 from Errors import ValidateFormatFloatError
-from Errors import ValidateFormatBoolError
 
 class Auto:
     """
     Класс Авто описывает автомобили, их цвета, марки, модели, характеристики
     год выпуска, цена и время разгона до 100 км.ч
-    - Атрибуты класса : mark, model, year_of_production, color, price, equipment, acceleration.
+    - Атрибуты класса:
+    - mark - Марка авто
+    - model - модель авто
+    - year_of_production - год выпуска
+    - color - цвет
+    - price - цена
+    - transmission - коробка передач
+    - acceleration разгон до 100 км/ч
     Класс в себе содержит следующие методы:
         - статик-методы (validate_атрибут) для валидации атрибутов
         - свойства атрибутов (@property) для их вывода
-        - сеттеры атрибутов (@атрибут.setter) для изменеия значений атрибутов
+        - сеттеры атрибутов (@атрибут.setter) для изменения значений атрибутов
     """
-    equip_auto = {'Коробка передач': "automat", 'Электропакет': "full", 'Тип': "petrol",
-            'Объем двигателя':  1.5, 'Производитель': 'Korea'}
+
     def __init__(self, mark: str, model: str, year_of_production: int, color: str, price: float,
-                 equipment: dict, acceleration: float):
+                 transmission: str, acceleration: float):
         self.__mark = self.__validate_mark(mark)
         self.__model = self.__validate_model(model)
         self.__year_of_production = self.__validate_year_of_production(year_of_production)
         self.__color = self.__validate_color(color)
         self.__price = self.__validate_price(price)
-        self.__equipment = self.__validate_equipment(equipment)
+        self.__transmission = self.__validate_transmission(transmission)
         self.__acceleration = self.__validate_acceleration(acceleration)
 
     def __str__(self):
-        """Метод для вывода инвормации всех значений атрибутов на печать"""
+        """Метод для вывода информации всех значений атрибутов на печать"""
 
         return (f'Марка Авто: {self.mark} \n'
                 f'Модель Авто: {self.model}\n'
                 f'Год выпуска: {self.year_of_production}\n'
                 f'Цвет кузова Авто: {self.color}\n'
                 f'Цена Авто: {self.price}\n'
-                f'Комплектация Авто: {self.equipment}\n'
+                f'Комплектация Авто: {self.transmission}\n'
                 f'Разгон до 100 км/ч,сек: {self.acceleration}')
 
     @staticmethod
     def __validate_mark(mark: str) -> str:
-        """Метод для проверки введенной информации в поле "марка авто", проверяется на пустое значение,
+        """Метод для проверки введенной информации в Параметр "Марка Авто" проверяется на пустое значение,
             присутствие цифр, проверка на тип вводимых данных (строка), а так же на вводимые символы"""
 
         if not isinstance(mark, str):
@@ -79,20 +84,20 @@ class Auto:
 
     @staticmethod
     def __validate_year_of_production(year_of_production: int) -> int:
-        """Метод для проверки введенной информации в поле year_of_production, проверяется на пустое значение,
+        """Метод для проверки введенной информации в Параметр "Год выпуска" проверяется на пустое значение,
                      тип вводимых данных (целое число), а так же на верный диапазон года выпуска авто"""
 
-        if not year_of_production:
-            raise EmptyNameError('Параметр "Год выпуска" не может быть пустым')
         if not isinstance(year_of_production, int):
             raise ValidateIntError('Параметр "Год выпуска" должен быть целочисленным')
+        if not year_of_production:
+            raise EmptyNameError('Параметр "Год выпуска" не может быть пустым')
         if year_of_production < 2012 or year_of_production > 2024:
             raise ValidateFormatIntError('Параметр "Год выпуска" должен быть в диапазоне от 2012 до 2024')
         return year_of_production
 
     @staticmethod
     def __validate_color(color: str) -> str:
-        """Метод для проверки введенной информации в поле color, проверяется на пустое значение,
+        """Метод для проверки введенной информации в Параметр "Цвет авто" проверяется на пустое значение,
                     проверка на тип вводимых данных (строка), а так же на вводимые символы"""
 
         if not isinstance(color, str):
@@ -117,7 +122,7 @@ class Auto:
 
     @staticmethod
     def __validate_acceleration(acceleration: float) -> float:
-        """Метод для проверки введенной информации в Параметр "Разгон до 100 км/ч,сек" проверяется на пустое значение,
+        """Метод для проверки введенной информации в Параметр "Разгон до 100 км/ч"  проверяется на пустое значение,
                                     проверка на тип вводимых данных (число должно быть округлено до десятых)"""
 
         if not isinstance(acceleration, float):
@@ -127,17 +132,19 @@ class Auto:
         return acceleration
 
     @staticmethod
-    def __validate_equipment(equipment: dict) -> dict:
-        """Метод для проверки введенной информации в поле equipment, проверяется на пустое значение,
-        так же на вводимое значение ключа в формате str, а значение ключа"""
+    def __validate_transmission(transmission: str) -> str:
+        """Метод для проверки введенной информации в Параметр "Коробка передач" проверяется на пустое значение,
+        так же на вводимое тип данных"""
 
-        #if equipment.items() not in equip_:
-         #   raise EmptyNameError('поле equipment не может быть пустым')
-        # q = list(filter(lambda x: 48 <= ord(x) <= 1103, equipment.values()))
-        # if len(q) == len(equipment.values()):
-        #     raise Exception('Параметр values(второй параметр) должен содержать только символы кириллицы, '
-        #                     'цифры и английский алфавит')
-        #return equipment
+        if not isinstance(transmission, str):
+            raise ValidateStrError('Параметр "Коробка передач" должен быть строкой')
+        if not transmission:
+           raise EmptyNameError('Параметр "Коробка передач" не может быть пустым')
+        q = list(filter(lambda x: 48 <= ord(x) <= 1103, transmission))
+        if len(q) != len(transmission):
+             raise Exception('Параметр "Коробка передач" должен содержать только символы кириллицы, '
+                             'цифры и английский алфавит')
+        return transmission
 
     @property
     def mark(self) -> str:
@@ -180,13 +187,12 @@ class Auto:
         self.__price = self.__validate_price(price)
 
     @property
-    def equipment(self) -> dict:
-        return self.__equipment
+    def transmission(self) -> str:
+        return self.__transmission
 
-    @equipment.setter
-    def equipment(self, equipment, *args, **kwargs):
-        equipment[args] = kwargs
-        self.__equipment = self.__validate_equipment(equipment)
+    @transmission.setter
+    def transmission(self, transmission: str):
+        self.__transmission = self.__validate_transmission(transmission)
 
     @property
     def acceleration(self) -> float:
@@ -198,14 +204,8 @@ class Auto:
 
 
 car = Auto('huyndai', 'ix35', 2013, 'серый', 987554.20,
-           {'Коробка передач': "automat", 'Электропакет': "full", 'Тип': "petrol",
-            'Объем двигателя': 1.6, 'Производитель': 'Korea'}, 7.3)
+           'Автомат', 7.3)
 print(car)
-print(car.equipment)
-car.equipment['Объем двигателя'] = 2.0
-car.equipment['Тип'] = 'diesel'
-print(car.equipment)
-
 
 """Задание 2.
 Реализуйте класс «Точка в пространстве». Необходимо хранить в полях
@@ -226,8 +226,8 @@ class Point_in_space:
         - axis_x, axis_y, axis_z - оси x, y, z
     Класс в себе содержит следующие методы:
     - статик - методы(validate_атрибут) для валидации атрибутов
-    - свойства атрибутов( @ property) для их вывода
-    - сеттеры атрибутов( @ атрибут.setter) для изменения координат точки и изменения типа точки
+    - свойства атрибутов(@ property) для их вывода
+    - сеттеры атрибутов(@ атрибут.setter) для изменения координат точки и изменения типа точки
      """
 
     def __init__(self, designation: str, axis_x: float, axis_y: float, axis_z: float):
