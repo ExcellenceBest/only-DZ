@@ -16,7 +16,8 @@
 хотя бы один ip.
 __________Решение___________"""
 import re
-
+ip = []
+result1 = []
 def get_ip_from_log(path) -> list:
     """
     Функция для обработки текстовых лог файлов.
@@ -25,7 +26,6 @@ def get_ip_from_log(path) -> list:
     """
     with open(path, 'r', encoding='utf-8') as file:
         ip = file.read()
-        # FIXME: откуда тут взялась глобальная переменная? Где вы её объявляли в модуле?
         global ip1
         ip1 = re.findall(r'([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})', ip)
         return ip1
@@ -51,9 +51,10 @@ def analyzing_ip(ip1: list) -> list:
             a = ".".join(str(k) for k in i)
             ip2.append(a)
     result = {}
+    if not ip2:
+        raise Exception('В файле отсутствуют корректные ip адреса')
     for i in ip2:
         result[i] = result.get(i, 0) + 1
-        # FIXME: откуда тут взялась глобальная переменная? Где вы её объявляли в модуле?
         global result1
     result1 = list(sorted(result.items(), key=lambda item: item[1], reverse=True))
     return result1
@@ -72,13 +73,11 @@ def processing_ip(result1: list) -> None:
 
 
 def main():
-    # TODO: неужели ваши функции не могут закончиться ошибкой? Где обработка исключений?
     try:
         get_ip_from_log('log.txt')
         analyzing_ip(ip1)
         processing_ip(result1)
-    except:
-        Exception()
-
+    except Exception as e:
+        print(e)
 if __name__ == '__main__':
      main()
