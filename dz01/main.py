@@ -16,66 +16,68 @@
 хотя бы один ip.
 __________Решение___________"""
 import re
-
-# FIXME: в питоне все имена пишутся только маленькими буквами, соблюдайте PEP8
-def get_ip_fromLog(path: str) -> list:
-    # FIXME: функция в параметрах принимает не текстовый файл, а путь до него
+ip = []
+result1 = []
+def get_ip_from_log(path) -> list:
     """
     Функция для обработки текстовых лог файлов.
-    :param path: str - на входе текстовый файл логов содержащий в себе айпи адреса.
-    :return: list - список содержащий в себе IP адреса
+    :param path: - на входе текстовый файл логов содержащий в себе айпи адреса.
+    :return: List - список содержащий в себе IP адреса
     """
     with open(path, 'r', encoding='utf-8') as file:
         ip = file.read()
-        # FIXME: откуда тут взялась глобальная переменная? Где вы её объявляли в модуле?
         global ip1
-        ip1 = re.findall(r"([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})", ip)
-        # FIXME: файл не требудет закрытия при использовании менеджера контекста, это ошибка
-        file.close()
+        ip1 = re.findall(r'([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})', ip)
         return ip1
 
 def analyzing_ip(ip1: list) -> list:
-    # FIXME: дописать документирование функции, не описаны параметры
-    """Аналитическая функция, принимает список адресов ip1: list, обрабатывает его, сортирует
-    и возвращает новый список ip2 с корректными адресами и количеством вхождений в первый список соответственно."""
+    """Аналитическая функция, обрабатывает полученные данные.
+    :param ip1: List - принимает список адресов ip1: list, обрабатывает его и сортирует.
+    :return list - возвращает новый список ip2 с корректными адресами и количеством вхождений в первый список соответственно"""
     mistake = []
     ip2 = []
-    for i in ip1:
-        if '.0.' in i or i[len(i) - 1] == "0" and i[len(i) - 2] == '.':
+    save = []
+    for k in ip1:
+        save.append([int(i) for i in k.split('.')])
+    for i in save:
+        if i[0] > 255 or i[0] < 1:
             mistake.append(i)
-    for i in ip1:
+        if i[1] > 255 or i[2] > 255:
+            mistake.append(i)
+        if i[3] > 255 or i[3] < 1:
+            mistake.append(i)
+    for i in save:
         if i not in mistake:
-            ip2.append(i)
+            a = ".".join(str(k) for k in i)
+            ip2.append(a)
     result = {}
+    if not ip2:
+        raise Exception('В файле отсутствуют корректные ip адреса')
     for i in ip2:
         result[i] = result.get(i, 0) + 1
-        # FIXME: откуда тут взялась глобальная переменная? Где вы её объявляли в модуле?
         global result1
     result1 = list(sorted(result.items(), key=lambda item: item[1], reverse=True))
     return result1
 
 def processing_ip(result1: list) -> None:
-    # FIXME: дописать документирование функции, не описаны параметры
-    """Функция для записи результата в новый файл(file2),
-    запись производиться в два столбца, функция принимает список и ничего не возвращает.
-    :param result1:
-    :return: None
+    """Функция для записи результата в новый файл(file2), запись производиться в два столбца.
+    :param result1: - функция принимает список
+    :return: None - ничего не возвращает.
     """
     result2 = ''
     for i in result1:
-        # FIXME: 4 пробела лучше заменить на escape табуляции
-        result2 += str(i[0] + '   ' + str(i[1])) + '\n'
+        result2 += str(i[0] + '\t' + str(i[1])) + '\n'
     file2 = open('file2', 'w', encoding='utf-8')
     file2.write(result2)
     file2.close()
 
 
 def main():
-    # TODO: неужели ваши функции не могут закончиться ошибкой? Где обработка исключений?
-    # TODO: ваша программа считает этот лог нормальным [2019-08-29 13:15:35]login to 10.64.64.800 почему?
-    get_ip_fromLog('log.txt')
-    analyzing_ip(ip1)
-    processing_ip(result1)
-
+    try:
+        get_ip_from_log('log.txt')
+        analyzing_ip(ip1)
+        processing_ip(result1)
+    except Exception as e:
+        print(e)
 if __name__ == '__main__':
      main()
