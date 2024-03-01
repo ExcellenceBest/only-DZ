@@ -15,32 +15,31 @@
  Строка лога не обязательно содержит ip, но в логах обязательно содержится
 хотя бы один ip.
 __________Решение___________"""
+import os.path
 import re
 
-# TODO: избавиться от глобальных переменных, использование глоб. переменных - плохая практика
-ip = []
-result1 = []
-#FIXME: path какого типа передается в функцию?
-def get_ip_from_log(path) -> list:
-    # FIXME: описание функции не соответствует реализации
-    """
-    Функция для обработки текстовых лог файлов.
-    :param path: - на входе текстовый файл логов содержащий в себе айпи адреса.
-    :return: List - список содержащий в себе IP адреса
-    """
-    with open(path, 'r', encoding='utf-8') as file:
-        ip = file.read()
-        # FIXME: попытка обратиться к несуществующей глобальной переменной ip1
-        global ip1
-        ip1 = re.findall(r'([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})', ip)
-        # FIXME: глобальные переменные не требуется возвращать из функций, может вы хотели вернуть что-то другое?
+def get_ip_from_log(path: str) -> list:
+    """ Функция используя регулярное выражение вытягивает из файла все совпадения по шаблону и формирует из них список.
+    :param path: str - на входе текстовый файл логов содержащий в себе ip адреса.
+    :return: List - список содержащий в себе IP адреса. """
+
+    if not isinstance(path, str):
+        raise NameError('Параметр "path" должен быть строкой')
+    if not path:
+        raise NameError('Параметр "path" не должен быть пустым')
+    if os.path.isfile(path) == True:
+        with open(path, 'r', encoding='utf-8') as file:
+            ip = file.read()
+            ip1 = re.findall(r'([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})', ip)
         return ip1
+    else:
+        raise FileNotFoundError('Файл не найден, проверьте путь к файлу')
 
 def analyzing_ip(ip1: list) -> list:
-    #FIXME: описание функции не соответствует реализации
-    """Аналитическая функция, обрабатывает полученные данные.
-    :param ip1: List - принимает список адресов ip1: list, обрабатывает его и сортирует.
-    :return list - возвращает новый список ip2 с корректными адресами и количеством вхождений в первый список соответственно"""
+    """Аналитическая функция, принимает список ip адресов, обрабатывает его и сортирует на валидные и не корректные.
+    :param ip1: List - принимает список адресов ip1: list.
+    :return list - возвращает новый список ip2 с корректными адресами и количеством вхождений в первый список соответственно."""
+
     mistake = []
     ip2 = []
     save = []
@@ -49,31 +48,29 @@ def analyzing_ip(ip1: list) -> list:
     for i in save:
         if i[0] > 255 or i[0] < 1:
             mistake.append(i)
+            continue
         if i[1] > 255 or i[2] > 255:
             mistake.append(i)
+            continue
         if i[3] > 255 or i[3] < 1:
             mistake.append(i)
+            continue
     for i in save:
         if i not in mistake:
             a = ".".join(str(k) for k in i)
             ip2.append(a)
     result = {}
-    if not ip2:
-        #FIXME: по условию лог файл содержит хотя бы один ip адрес, эта ошибка не может возникнуть
-        raise Exception('В файле отсутствуют корректные ip адреса')
     for i in ip2:
         result[i] = result.get(i, 0) + 1
-        # TODO: избавиться от использования глобальной переменной
-        global result1
-    result1 = list(sorted(result.items(), key=lambda item: item[1], reverse=True))
-    # FIXME: глобальные переменные не требуется возвращать из функций, может вы хотели вернуть что-то другое?
+    a = list(sorted(result.items(), key=lambda item: item[1], reverse=True))
+    result1 = a
     return result1
 
-def processing_ip(result1: list) -> None:
-    # FIXME: описание функции не соответствует реализации. None не нужно прописывать в return
-    """Функция для записи результата в новый файл(file2), запись производиться в два столбца.
+def processing_ip(result1: list):
+    """Функция принимает список валидных ip адресов, формирует из списка два столбца:
+     Адрес - кол-во вхождений, создает новый файл(file2), осуществляет в него запись.
     :param result1: - функция принимает список
-    :return: None - ничего не возвращает.
+    :return: - ничего не возвращает.
     """
     result2 = ''
     for i in result1:
@@ -81,19 +78,16 @@ def processing_ip(result1: list) -> None:
     file2 = open('file2', 'w', encoding='utf-8')
     file2.write(result2)
     file2.close()
-
+    print('Работа функции завершена успешно!')
 
 def main():
-    # TODO: добавил в log.txt строку 18 но программа ничего не делает. Почему?
     try:
-        #FIXME: если функция что-то возвращает, это что-то нужно куда-то сохрнаить
-        get_ip_from_log('log.txt')
-        # FIXME: если функция что-то возвращает, это что-то нужно куда-то сохрнаить
-        analyzing_ip(ip1)
-        processing_ip(result1)
-    # FIXME: Никогда не пишите ecxept Exception. Так вы поймаете исключения, которые не позволят понять ошибку в программе.
-    # TODO: подумать какие исключения могут вызывать ваши функции и написать их обработку
-    except Exception as e:
+        List_ip = get_ip_from_log('log.txt')
+        Sort_ip = analyzing_ip(List_ip)
+        processing_ip(Sort_ip)
+    except NameError as e:
+        print(e)
+    except FileNotFoundError as e:
         print(e)
 if __name__ == '__main__':
      main()
