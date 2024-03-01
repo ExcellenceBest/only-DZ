@@ -77,7 +77,6 @@ def processing_ip(result1: list):
     file2 = open('file2', 'w', encoding='utf-8')
     file2.write(result2)
     file2.close()
-    print('Работа функции завершена успешно!')
 
 def main():
     try:
@@ -88,5 +87,7 @@ def main():
         print(e)
     except FileNotFoundError as e:
         print(e)
+    else:
+        print('Работа функции завершена успешно!')
 if __name__ == '__main__':
      main()
