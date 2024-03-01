@@ -7,10 +7,7 @@
 декоратор @property и @атрибут.setter."""
 from datetime import date
 from Errors import EmptyNameError
-from Errors import ValidateIntError
 from Errors import ValidateStrError
-from Errors import ValidateFormatStrError
-from Errors import ValidateFormatIntError
 from Errors import ValidateFormatFloatError
 
 class Student:
@@ -19,15 +16,16 @@ class Student:
         self.__date_of_born = self.__validate_date_of_born(date_of_born)
         self.__title_group = self.__validate_title_group(title_group)
         self.__average_score = self.__validate_average_score(average_score)
-        self.__items = list
+        self.__items = self.__validate_items(items)
+
     def __str__(self):
         """Метод для вывода информации всех значений атрибутов на печать"""
 
         return (f'ФИО: {self.name} \n'
-                f'Дата рождения: {self.date_of_born}\n'
-                f'Название группы: {self.title_group}\n'
-                f'Средний балл: {self.average_score}\n'
-                f'Изучаемые предметы: {self.items}\n')
+                f'Дата рождения: {self.__date_of_born}\n'
+                f'Название группы: {self.__title_group}\n'
+                f'Средний балл: {self.__average_score}\n'
+                f'Изучаемые предметы: {self.__items}\n')
 
     @staticmethod
     def __validate_name(name: list) -> list:
@@ -60,9 +58,6 @@ class Student:
             raise ValidateStrError('Параметр "Название группы" должен быть строкой')
         if not title_group:
             raise EmptyNameError('Параметр "Название группы" не может быть пустым')
-        a = list(filter(lambda x: 1040 <= ord(x) <= 1103, title_group))
-        if len(a) != len(title_group):
-            raise ValidateFormatStrError('Параметр "Название группы" должен содержать только символы кириллицы')
         return title_group.capitalize()
 
     @staticmethod
@@ -76,9 +71,65 @@ class Student:
             raise EmptyNameError('Средний балл" не может быть пустым')
         return average_score
 
+    @staticmethod
+    def __validate_items(items: list) -> list:
+        """Метод для проверки введенной информации в Параметр "Изучаемые предметы" проверяется на пустое значение,
+            проверка на тип вводимых данных (строка), а так же на вводимые символы"""
+
+        if not isinstance(items, list):
+            raise ValidateStrError('Параметр "Изучаемые предметы" должен быть списком')
+        if not items:
+            raise EmptyNameError('Параметр "Изучаемые предметы" не может быть пустым')
+        return items
+
+    @property
+    def name(self) -> str:
+        return self.__name
+
+    @name.setter
+    def name(self, name):
+        self.__name = self.__validate_name(name)
+
+    @property
+    def date_of_born(self) -> date:
+        return self.__date_of_born
+
+    @date_of_born.setter
+    def date_of_born(self, date_of_born):
+        self.__date_of_born = self.__validate_date_of_born(date_of_born)
+
+    @property
+    def title_group(self) -> str:
+        return self.__title_group
+
+    @title_group.setter
+    def title_group(self, title_group):
+        self.__title_group = self.__validate_title_group(title_group)
+
+    @property
+    def average_score(self) -> float:
+        return self.__average_score
+
+    @average_score.setter
+    def average_score(self, average_score):
+        self.__average_score = self.__validate_average_score(average_score)
+
+    @property
+    def items(self) -> list:
+        return self.__items
+
+    @items.setter
+    def items(self, items):
+        self.__items = self.__validate_items(items)
 
 
+student1 = Student(['Иванов', 'Иван', 'Иванович'], date(1984, 4, 9), 'П-7', 4.4, ['Математика',"Физика", "Высшая математика"])
+print(student1)
+student1.items = ['Тригонометрия']
+print(student1.items)
 """
+
+
 Задание 2
 Реализуйте класс «Книга». Необходимо хранить в полях класса: название
 книги, год выпуска, издателя, жанр, автора, цену. Реализуйте конструктор по
