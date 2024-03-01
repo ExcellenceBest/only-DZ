@@ -62,8 +62,7 @@ def analyzing_ip(ip1: list) -> list:
     result = {}
     for i in ip2:
         result[i] = result.get(i, 0) + 1
-    a = list(sorted(result.items(), key=lambda item: item[1], reverse=True))
-    result1 = a
+    result1 = list(sorted(result.items(), key=lambda item: item[1], reverse=True))
     return result1
 
 def processing_ip(result1: list):
