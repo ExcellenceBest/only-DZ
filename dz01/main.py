@@ -19,25 +19,31 @@ import os.path
 import re
 
 def get_ip_from_log(path: str) -> list:
+    # FIXME: Описание входных папарметров не соответствует тому, что передается
     """ Функция используя регулярное выражение вытягивает из файла все совпадения по шаблону и формирует из них список.
     :param path: str - на входе текстовый файл логов содержащий в себе ip адреса.
     :return: List - список содержащий в себе IP адреса. """
-
+    # FIXME: лишняя проверка
     if not isinstance(path, str):
+        # FIXME: исключение NameError не предназанчено для этой проверки
         raise NameError('Параметр "path" должен быть строкой')
+    # FIXME: лишняя проверка
     if not path:
+        # FIXME: исключение NameError не предназанчено для этой проверки
         raise NameError('Параметр "path" не должен быть пустым')
+    #FIXME: лишняя проверка, open тоже умеет это проверять
     if os.path.isfile(path) == True:
         with open(path, 'r', encoding='utf-8') as file:
             ip = file.read()
             ip1 = re.findall(r'([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})', ip)
         return ip1
+    # FIXME: лишняя ветка, open сам инициирует это исключение, если не найдет файл
     else:
         raise FileNotFoundError('Файл не найден, проверьте путь к файлу')
 
 def analyzing_ip(ip1: list) -> list:
     """Аналитическая функция, принимает список ip адресов, обрабатывает его и сортирует на валидные и не корректные.
-    :param ip1: List - принимает список адресов ip1: list.
+    :param ip1: list - список ip адресов
     :return list - возвращает новый список ip2 с корректными адресами и количеством вхождений в первый список соответственно."""
 
     mistake = []
@@ -80,14 +86,17 @@ def processing_ip(result1: list):
 
 def main():
     try:
+        # FIXME: названия переменных в питоне пишутся в snake_case, е используйте верхний регистр, PEP8 подсказывает
         List_ip = get_ip_from_log('log.txt')
         Sort_ip = analyzing_ip(List_ip)
         processing_ip(Sort_ip)
+    # TODO: такую ошибку в программе нельзя словить, но можно словить еще ряд других. Каких?
     except NameError as e:
         print(e)
     except FileNotFoundError as e:
         print(e)
     else:
         print('Работа функции завершена успешно!')
+
 if __name__ == '__main__':
      main()
