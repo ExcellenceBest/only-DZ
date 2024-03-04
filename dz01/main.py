@@ -33,9 +33,7 @@ def analyzing_ip(ip1: list) -> list:
     :param ip1: list - список ip адресов
     :return list - возвращает новый список ip2 с корректными адресами и количеством вхождений в первый список соответственно."""
 
-    mistake = []
-    ip2 = []
-    save = []
+    mistake, ip2, save = [], [], []
     for k in ip1:
         save.append([int(i) for i in k.split('.')])
     for i in save:
@@ -73,14 +71,14 @@ def processing_ip(result1: list):
 
 def main():
     try:
-        list_ip = get_ip_from_log('')
+        list_ip = get_ip_from_log('log.txt')
         sort_ip = analyzing_ip(list_ip)
         processing_ip(sort_ip)
-    # TODO: такую ошибку в программе нельзя словить, но можно словить еще ряд других. Каких?
-    except FileNotFoundError as e:
+    except OSError as e:
             print(e)
+    except TypeError as e:
+        print(e)
     else:
         print('Работа функции завершена успешно!')
-
 if __name__ == '__main__':
      main()
