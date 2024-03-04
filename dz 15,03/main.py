@@ -132,4 +132,12 @@ class Length_converter:
         result = length * 1.76
         return f'{length} Мили -> {round(result, 2)} км'
 
-
+q = Length_converter(5)
+print(q.convert_cm_in_inch(10))
+print(q.convert_metre_in_foot(3))
+print(q.convert_kilometre_in_mile(5))
+print(q.convert_metre_in_yard(8))
+print(q.convert_inch_in_cm(10))
+print(q.convert_foot_in_metre(17))
+print(q.convert_yard_in_metre(6))
+print(q.convert_mile_in_kilometre(3))
