@@ -18,7 +18,8 @@ class ConverterTemp:
         - перевод из Кельвина в Цельсий - converting_in_C_from_K
         - перевод из Фаренгейта в Цельсий - converting_in_C_from_F
         - перевод из Цельсия в Кельвин - converting_in_K_from_C
-        - перевод из Фаренгейта в Кельвин - converting_in_K_from_F"""
+        - перевод из Фаренгейта в Кельвин - converting_in_K_from_F
+        """
 
     def __init__(self, name: str, temp: float):
         self.__name = name
@@ -71,11 +72,64 @@ print(a.converting_in_C_from_F(333))
 
 
 
+"""Задание 2.  Создайте класс для перевода длинны из метрической в
+имперскую(английскую) систему. У класса должно быть несколько статических методов"""
 
-# """Задание 2.  Создайте класс для перевода длинны из метрической в
-# имперскую(английскую) систему. У класса должно быть несколько статических методов
-# Дюйм (inch) = 25,4 мм (2,54 см)
-# Фут (foot) = 0,3048 м (или 12 дюймов)
-# Ярд (yard) = 0,9144 м (или 3 фута)
-# Миля (mile) = 1,609 км (или 1,760 ярда)"""
-#
+class Length_converter:
+    """Класс создан для конвертации длины из системы СИ в английскую систему и наоборот.
+    Атрибуты класса - length (число для конвертации)
+    Методы класса:
+        - convert_cm_in_inch перевод из см в дюймы
+        - convert_inch_in_cm перевод из дюймов в см
+        - convert_metre_in_foot перевод из метров в футы
+        - convert_foot_in_metre перевод из футов в метры
+        - convert_metre_in_yard перевод из метров в ярды
+        - convert_yard_in_metre перевод из ярдов в метры
+        - convert_kilometre_in_mile перевод из километров в мили
+        - convert_mile_in_kilometre перевод из миль в километры
+        """
+    def __init__(self, length: float):
+
+        self.length = length
+    @staticmethod
+    def convert_cm_in_inch(length: float):
+        result = length / 2.54
+        return f'{length} cм -> {round(result, 2)} дюйма'
+
+    @staticmethod
+    def convert_inch_in_cm(length: float):
+        result = length * 2.54
+        return f'{length} дюймов -> {round(result, 2)} см'
+
+    @staticmethod
+    def convert_metre_in_foot(length: float):
+        result = length / 0.3048
+        return f'{length} м -> {round(result, 2)} Футов'
+
+    @staticmethod
+    def convert_foot_in_metre(length: float):
+        result = length * 0.3048
+        return f'{length} Футов -> {round(result, 2)} М'
+
+    @staticmethod
+    def convert_metre_in_yard(length: float):
+        result = length / 0.9144
+        return f'{length} м -> {round(result, 2)} Ярдов'
+
+    @staticmethod
+    def convert_yard_in_metre(length: float):
+        result = length * 0.9144
+        return f'{length} Ярдов -> {round(result, 2)} М'
+
+
+    @staticmethod
+    def convert_kilometre_in_mile(length: float):
+        result = length / 1.76
+        return f'{length} км -> {round(result, 2)} Миль'
+
+    @staticmethod
+    def convert_mile_in_kilometre(length: float):
+        result = length * 1.76
+        return f'{length} Мили -> {round(result, 2)} км'
+
+

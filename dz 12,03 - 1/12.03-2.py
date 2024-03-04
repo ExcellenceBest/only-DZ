@@ -10,6 +10,7 @@ from Errors import EmptyNameError
 from Errors import ValidateStrError
 from Errors import ValidateFormatFloatError
 
+
 class Student:
     def __init__(self, name: list, date_of_born: date, title_group: str, average_score: float, items: list):
         self.name = self.__validate_name(name)
@@ -29,13 +30,13 @@ class Student:
 
     @staticmethod
     def __validate_name(name: list) -> list:
-        """Метод для проверки введенной информации в Параметр "Дата рождения" проверяется на пустое значение,
+        """Метод для проверки введенной информации в Параметр "ФИО" проверяется на пустое значение,
             проверка на тип вводимых данных (строка), а так же на вводимые символы"""
 
         if not isinstance(name, list):
-            raise ValidateStrError('Параметр "Дата рождения" должен быть списком')
+            raise ValidateStrError('Параметр "ФИО" должен быть списком')
         if not name:
-            raise EmptyNameError('Параметр "Дата рождения" не может быть пустым')
+            raise EmptyNameError('Параметр "ФИО" не может быть пустым')
         return name
 
     @staticmethod
@@ -72,10 +73,9 @@ class Student:
         return average_score
 
     @staticmethod
-    def __validate_items(items: list) -> list:
+    def __validate_items(items: str) -> list:
         """Метод для проверки введенной информации в Параметр "Изучаемые предметы" проверяется на пустое значение,
             проверка на тип вводимых данных (строка), а так же на вводимые символы"""
-
         if not isinstance(items, list):
             raise ValidateStrError('Параметр "Изучаемые предметы" должен быть списком')
         if not items:
@@ -122,14 +122,29 @@ class Student:
     def items(self, items):
         self.__items = self.__validate_items(items)
 
+    def append_items(self, items: str):
+        """Метод для добавления нового предмета в список предметов."""
+
+        if items in self.__items:
+            raise Exception('Ошибка повторного добавления элемента')
+        if not isinstance(items, str):
+            raise ValidateStrError('Добавляемый параметр должен быть строкой')
+        else:
+            self.__items.append(items)
+
+
 
 student1 = Student(['Иванов', 'Иван', 'Иванович'], date(1984, 4, 9), 'П-7', 4.4, ['Математика',"Физика", "Высшая математика"])
-print(student1)
-student1.items = ['Тригонометрия']
+print(student1.name)
+student1.name = ['Петров', 'Петр', 'Петрович']
+print(student1.name)
+student1.append_items('Тригонометрия')
 print(student1.items)
+
+
+
+
 """
-
-
 Задание 2
 Реализуйте класс «Книга». Необходимо хранить в полях класса: название
 книги, год выпуска, издателя, жанр, автора, цену. Реализуйте конструктор по
