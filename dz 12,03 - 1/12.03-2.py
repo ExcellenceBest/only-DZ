@@ -12,6 +12,16 @@ from Errors import ValidateFormatFloatError
 from Errors import ValidateFormatStrError
 
 class Student:
+    """Класс "Студент" описывает  человека учащегося в учебном заведении. Класс имеет атрибуты такие как:
+        - name - ФИО
+        - date_of_born - Дата рождения
+        - title_group - Название группы
+        - average_score - средний балл
+        - items - Изучаемые предметы
+        Так же класс имеет следующие методы:
+        - статик-методы (validate_атрибут) для валидации атрибутов
+        - свойства атрибутов (@property) для их вывода
+        - сеттеры атрибутов (@атрибут.setter) для изменения значений атрибутов"""
     def __init__(self, name: list, date_of_born: date, title_group: str, average_score: float, items: list):
         self.name = self.__validate_name(name)
         self.__date_of_born = self.__validate_date_of_born(date_of_born)
@@ -73,7 +83,7 @@ class Student:
         return average_score
 
     @staticmethod
-    def __validate_items(items: str) -> list:
+    def __validate_items(items: list) -> list:
         """Метод для проверки введенной информации в Параметр "Изучаемые предметы" проверяется на пустое значение,
             проверка на тип вводимых данных (строка), а так же на вводимые символы"""
         if not isinstance(items, list):
@@ -122,7 +132,7 @@ class Student:
     def items(self, items):
         self.__items = self.__validate_items(items)
 
-    def append_items(self, items: str):
+    def append_items(self, items: str) -> list:
         """Метод для добавления нового предмета в список предметов."""
 
         if items in self.__items:
