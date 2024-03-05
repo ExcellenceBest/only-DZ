@@ -134,12 +134,12 @@ class Student:
 
 
 
-# student1 = Student(['Иванов', 'Иван', 'Иванович'], date(1984, 4, 9), 'П-7', 4.4, ['Математика',"Физика", "Высшая математика"])
-# print(student1.name)
-# student1.name = ['Петров', 'Петр', 'Петрович']
-# print(student1.name)
-# student1.append_items('Тригонометрия')
-# print(student1.items)
+student1 = Student(['Иванов', 'Иван', 'Иванович'], date(1984, 4, 9), 'П-7', 4.4, ['Математика',"Физика", "Высшая математика"])
+print(student1.name)
+student1.name = ['Петров', 'Петр', 'Петрович']
+print(student1.name)
+student1.append_items('Тригонометрия')
+print(student1.items)
 
 
 
