@@ -9,10 +9,7 @@
 экземпляр класса используя альтернативный конструктор.
 Реализуйте статический метод, который вычисляет возраст человека
 относительно текущего дня по переданной дате рождения """
-
-from datetime import date
-from Errors import EmptyNameError
-from Errors import ValidateStrError
+from datetime import datetime, date, time
 
 class Human:
     """Класс "Человек" описывает человека. Класс имеет атрибуты такие как:
@@ -20,13 +17,27 @@ class Human:
         - date_of_born - Дата рождения
         - telephone - Номер телефона
         Так же класс имеет следующие методы:
-        - статик-методы (validate_атрибут) для валидации атрибутов
         - свойства атрибутов (@property) для их вывода
-        - сеттеры атрибутов (@атрибут.setter) для изменения значений атрибутов"""
+        - сеттеры атрибутов (@атрибут.setter) для изменения значений атрибутов
+        - create_human_alternative - класс-метод для создания объекта """
     def __init__(self, name: list, date_of_born: date, telephone: str):
-        self.name = self.__validate_name(name)
-        self.__date_of_born = self.__validate_date_of_born(date_of_born)
-        self.__telephone = self.__validate_telephone(telephone)
+        self.__name = name
+        self.__date_of_born = date_of_born
+        self.__telephone = telephone
+
+    @classmethod
+    def create_human_alternative(cls, path: str) -> object:
+        """Метод позволяет создавать экземпляры класса альтернативным способом,
+                    принимает в себя параметр path: str(путь к файлу)
+                    и возвращает объект класса."""
+        with open(path, 'r', encoding='utf-8') as file:
+            create_human = list(map(lambda x: x.rstrip('\n'), file.readlines()))
+            print(create_human)
+            create_human[1] = create_human[1]
+            create_human[2] = str(create_human[2])
+
+        return cls(*create_human)
+
 
     def __str__(self):
         """Метод для вывода информации всех значений атрибутов на печать"""
@@ -35,46 +46,48 @@ class Human:
                 f'Дата рождения: {self.__date_of_born}\n'
                 f'Телефон: {self.__telephone}\n')
 
+    @property
+    def name(self) -> list:
+        return self.__name
+
+    @name.setter
+    def name(self, name):
+        self.__name = name
+
+    @property
+    def date_of_born(self) -> date:
+        return self.__date_of_born
+
+    @date_of_born.setter
+    def date_of_born(self, date_of_born):
+        self.__date_of_born = date_of_born
+
+    @property
+    def telephone(self) -> str:
+        return self.__telephone
+
+    @telephone.setter
+    def telephone(self, telephone):
+        self.__telephone = telephone
+
     @staticmethod
-    def __validate_name(name: list) -> list:
-        """Метод для проверки введенной информации в Параметр "ФИО" проверяется на пустое значение,
-            проверка на тип вводимых данных (строка), а так же на вводимые символы"""
-
-        if not isinstance(name, list):
-            raise ValidateStrError('Параметр "ФИО" должен быть списком')
-        if not name:
-            raise EmptyNameError('Параметр "ФИО" не может быть пустым')
-        return name
-
-    @staticmethod
-    def __validate_date_of_born(date_of_born: date) -> date:
-        """Метод для проверки введенной информации в Параметр "Дата рождения" проверяется на пустое значение,
-            проверка на тип вводимых данных (число)"""
-
-        if not isinstance(date_of_born, date):
-            raise ValidateStrError('Параметр "Дата рождения" должен быть числом')
-        if not date_of_born:
-            raise EmptyNameError('Параметр "Дата рождения" не может быть пустым')
-        return date_of_born
-
-    @staticmethod
-    def __validate_telephone(telephone: str) -> str:
-        """Метод для проверки введенной информации в Параметр "Телефон"" проверяется на пустое значение,
-            проверка на тип вводимых данных (строка), а так же на вводимые символы"""
-
-        if not isinstance(telephone, str):
-            raise ValidateStrError('Параметр "Телефон" должен быть строкой')
-        if not telephone:
-            raise EmptyNameError('Параметр "Телефон" не может быть пустым')
-        return telephone
+    def lived_through(born):
+        now = date.today()
+        date_born = date()
+        result = now - born
+        return result
 
 
+human1 = Human(['Иванов', 'Иван', 'Иванович'], (1984, 9, 4), '+7-964-136-5667')
+print(human1)
+human2 = Human.create_human_alternative('Human.txt')
+print(human2)
+print(human1.lived_through((1984,5,4)))
 
 
-
-
-
-
+birthdate = date(2000, 1, 1)
+today = date.today()
+age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
 
 
 
