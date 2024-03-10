@@ -3,6 +3,8 @@
 автомобиле. С помощью механизма наследования, реализуйте класс
 ElectricCar (содержит информацию об электроавтомобиле). Каждый из
 классов должен содержать необходимые для работы методы. """
+
+
 class Car:
     """
     Класс Авто описывает автомобиль.
@@ -51,6 +53,7 @@ class Car:
     def color(self, color):
         self.__color = color
 
+
 class ElectricCar(Car):
     def __init__(self, mark: str, year_of_production: int, color: str, battery_capacity: int):
         super().__init__(mark, year_of_production, color)
@@ -79,6 +82,7 @@ print(electric_car.battery_capacity)
 электронном устройстве. С помощью механизма наследования, реализуйте
 класс MobilePhone (содержит информацию об мобильном телефоне). Каждый
 из классов должен содержать необходимые для работы методы."""
+
 
 class Device:
     def __init__(self, title: str, color: str, memory_capacity: int):
@@ -125,7 +129,7 @@ class MobilePhone(Device):
 
     @property
     def battery_capacity(self) -> int:
-        return f'{self.__battery_capacity} mah'
+        return self.__battery_capacity
 
     @battery_capacity.setter
     def battery_capacity(self, battery_capacity):
@@ -133,10 +137,10 @@ class MobilePhone(Device):
 
     @property
     def display_size(self) -> float:
-        return f'{self.__display_size}"'
+        return self.__display_size
 
     @display_size.setter
-    def display_size(self,display_size):
+    def display_size(self, display_size):
         self.__display_size = display_size
 
 
@@ -144,4 +148,3 @@ mobile1 = MobilePhone('Iphone', 'white', 16, 5000, 6.4)
 print(mobile1)
 print(mobile1.battery_capacity)
 print(mobile1.display_size)
-
