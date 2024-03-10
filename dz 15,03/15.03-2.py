@@ -1,4 +1,4 @@
-"""Задание 1.
+""" Задание 1.
 Реализуйте класс «Человек».
 Необходимо хранить в полях класса: ФИО, возраст, контактный
 телефон. Реализуйте конструктор по умолчанию и метод для вывода данных.
@@ -9,10 +9,12 @@
 экземпляр класса используя альтернативный конструктор.
 Реализуйте статический метод, который вычисляет возраст человека
 относительно текущего дня по переданной дате рождения """
+
 from datetime import datetime, date
 
+
 class Human:
-    """Класс "Человек" описывает человека. Класс имеет атрибуты такие как:
+    """ Класс "Человек" описывает человека. Класс имеет атрибуты такие как:
         - name - ФИО
         - date_of_born - Дата рождения
         - telephone - Номер телефона
@@ -68,8 +70,8 @@ class Human:
     def telephone(self, telephone):
         self.__telephone = telephone
 
-
-    def lived_through(self, date_of_born: date):
+    @staticmethod
+    def lived_through(date_of_born: date):
         now = date.today()
         human_birthday = date_of_born
         age = now.year - human_birthday.year
@@ -97,6 +99,7 @@ print(human2.lived_through(human2.date_of_born))
 «Бумажный экземпляр». Реализуйте метод, который изменяет для отдельного
 объекта тип на «Электронный экземпляр»."""
 
+
 class Book:
     """Класс 'Книга' описывает книги и их параметры. Класс имеет следующие атрибуты:
         - title_book - Название книги
@@ -109,12 +112,12 @@ class Book:
         - сеттеры атрибутов (@атрибут.setter) для изменения значений атрибутов"""
 
     _type_book = 'Бумажный'
+
     def __init__(self, title_book: str, genre: str, year_of_release: date, type_book: str = _type_book):
         self.__title_book = title_book
         self.__genre = genre
         self.__year_of_release = year_of_release
         self._type_book = type_book
-
 
     def __str__(self):
         """Метод для вывода информации всех значений атрибутов на печать"""
@@ -130,6 +133,7 @@ class Book:
             create_book = list(map(lambda x: x.rstrip('\n'), file.readlines()))
         return cls(*create_book)
 
+    @property
     def type_of_book(self) -> str:
         return f'Ваш экземпляр книги: {self._type_book}\n'
 
