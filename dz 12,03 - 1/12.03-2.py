@@ -23,7 +23,7 @@ class Student:
         - свойства атрибутов (@property) для их вывода
         - сеттеры атрибутов (@атрибут.setter) для изменения значений атрибутов"""
     def __init__(self, name: list, date_of_born: date, title_group: str, average_score: float, items: list):
-        self.name = self.__validate_name(name)
+        self.__name = self.__validate_name(name)
         self.__date_of_born = self.__validate_date_of_born(date_of_born)
         self.__title_group = self.__validate_title_group(title_group)
         self.__average_score = self.__validate_average_score(average_score)
@@ -93,7 +93,7 @@ class Student:
         return items
 
     @property
-    def name(self) -> str:
+    def name(self) -> list:
         return self.__name
 
     @name.setter
@@ -322,5 +322,5 @@ class Book:
         self.__price = self.__validate_price(price)
 
 
-book1 = Book('Сказки', (1984, 5, 21), 'Сфера', 'Развлекательный', 'Пушкин', 3.62)
+book1 = Book('Сказки', date(1984, 5, 21), 'Сфера', 'Развлекательный', 'Пушкин', 3.62)
 print(book1)
