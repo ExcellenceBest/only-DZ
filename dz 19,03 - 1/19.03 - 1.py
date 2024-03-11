@@ -91,7 +91,7 @@ class Device:
         self.__memory_capacity = memory_capacity
 
     def __str__(self):
-        return (f'Название усройства {self.__title}\n'
+        return (f'Название устройства {self.__title}\n'
                 f'Цвет устройства {self.__color}\n'
                 f'Объем памяти устройства {self.__memory_capacity}')
 
@@ -129,7 +129,7 @@ class MobilePhone(Device):
 
     @property
     def battery_capacity(self) -> int:
-        return self.__battery_capacity
+        return f'Емкость аккумулятора устройства {self.__battery_capacity} mah'
 
     @battery_capacity.setter
     def battery_capacity(self, battery_capacity):
@@ -137,7 +137,7 @@ class MobilePhone(Device):
 
     @property
     def display_size(self) -> float:
-        return self.__display_size
+        return f'Диагональ {self.__display_size}"'
 
     @display_size.setter
     def display_size(self, display_size):
