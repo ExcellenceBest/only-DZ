@@ -15,6 +15,7 @@ Ellipse — эллипс с заданными координатами верх
 информацию о каждой из фигур, включая площадь и периметр."""
 
 from abc import ABC, abstractmethod
+from math import pi
 
 
 class Shape(ABC):
@@ -60,7 +61,7 @@ class Square(Shape):
 
 
     def area(self):
-        return f'{self.side ** 2} {self.__unit_of_measurement}'
+        return f'{self.side ** 2} Кв.{self.__unit_of_measurement}'
 
     def perimeter(self):
         return f'{self.side * 4} {self.__unit_of_measurement}'
@@ -79,9 +80,7 @@ class Square(Shape):
             info_of_figure = file.read()
         return info_of_figure
 
-square1 = Square('Квадрат', 'Кв. См', [2, 2], 5)
-print(square1.load('square.txt'))
-
+square1 = Square('Квадрат', 'См', [2, 2], 5)
 
 
 class Rectangle(Shape):
@@ -89,7 +88,50 @@ class Rectangle(Shape):
 
 
 class Circle(Shape):
-    ...
+    def __init__(self, name: str, unit_of_measurement: str, point_of_reference: list, radius: int):
+        self.__name = name
+        self.__unit_of_measurement = unit_of_measurement
+        self.__point_of_reference = point_of_reference
+        self.__radius = radius
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, name):
+        self.__name = name
+
+    @property
+    def unit_of_measurement(self):
+        return self.__unit_of_measurement
+
+    @unit_of_measurement.setter
+    def unit_of_measurement(self, unit_of_measurement):
+        self.__unit_of_measurement = unit_of_measurement
+
+    def area(self):
+        return f'{round(self.__radius ** 2 * pi), 2} {self.__unit_of_measurement}'
+
+    def perimeter(self):
+        return f'{round(2 * pi * self.__radius), 2} {self.__unit_of_measurement}'
+
+    def save(self):
+        lst = [('Фигура', round1.__name), ('Площадь фигуры', round1.area()), ('Периметр', round1.perimeter())]
+        doc1 = ''
+        for i in lst:
+            doc1 += str(i[0] + ':' + '\t' + str(i[1])) + '\n'
+        round = open('round', 'w', encoding='utf-8')
+        round.write(str(doc1))
+        round.close()
+
+    def load(self,path: str) -> str:
+        with open(path, 'r', encoding='utf-8') as file:
+            info_of_figure = file.read()
+        return info_of_figure
+
+
+round1 = Circle('Окружность', 'См', [6, 6], 4)
 
 
 class Ellipse(Shape):
@@ -99,5 +141,11 @@ def manipulation():
     square1.area()
     square1.perimeter()
     square1.save()
+    print(square1.load('square.txt'))
+    round1.area()
+    round1.perimeter()
+    round1.save()
+    print(round1.load("round.txt"))
 
 manipulation()
+
