@@ -3,9 +3,6 @@
     <module name="only-DZ" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />
-    <envs>
-      <env name="PYTHONUNBUFFERED" value="1" />
-    </envs>
     <option name="SDK_HOME" value="" />
     <option name="SDK_NAME" value="Python 3.11 (pythonProject2)" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/dz01" />
