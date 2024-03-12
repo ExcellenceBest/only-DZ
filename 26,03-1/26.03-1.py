@@ -35,10 +35,8 @@ class Shape(ABC):
     def load(self):
         raise NotImplementedError
 
-
 class Square(Shape):
     def __init__(self, point_of_reference: list, side: int):
-        super().__init__(self)
         self.point_of_reference = point_of_reference
         self.side = side
 
@@ -49,11 +47,14 @@ class Square(Shape):
         return self.side * 4
 
     def save(self):
-
         square = open('square', 'w', encoding='utf-8')
-        square.write(result2)
+        square.write()
         square.close()
 
+    def load(self):
+        ...
+
+square1 = Square([2, 2], 5)
 
 class Rectangle(Shape):
     ...
@@ -65,3 +66,10 @@ class Circle(Shape):
 
 class Ellipse(Shape):
     ...
+
+def manipulation():
+    area1 = square1.area()
+    perimeter1 = square1.perimeter()
+    print(area1, perimeter1)
+
+manipulation()

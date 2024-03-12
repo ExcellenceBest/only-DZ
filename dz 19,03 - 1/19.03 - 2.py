@@ -148,14 +148,16 @@ class Passport:
                     - name - ФИО
                     - date_of_born - Дата рождения
                     - telephone - Номер телефона
+                    - country - Страна
                     - address - Адрес проживания
                     Так же класс имеет следующие методы:
                     - свойства атрибутов (@property) для их вывода
                     - сеттеры атрибутов (@атрибут.setter) для изменения значений атрибутов """
-    def __init__(self, name: list, date_of_born: date, passport_series_number: int, address: str):
+    def __init__(self, name: list, date_of_born: date, passport_series_number: int, country: str, address: str):
         self.__name = name
         self.__date_of_born = date_of_born
         self.__passport_series_number = passport_series_number
+        self.__country = country
         self.__address = address
 
     def __str__(self):
@@ -164,6 +166,7 @@ class Passport:
         return (f'ФИО: {self.__name}\n'
                 f'Дата рождения: {self.__date_of_born}\n'
                 f'Серия и номер паспорта: {self.__passport_series_number}\n'
+                f'Страна проживания: {self.__country}\n'
                 f'Адрес проживания: {self.__address}')
 
     @property
@@ -191,6 +194,14 @@ class Passport:
         self.__passport_series_number = passport_series_number
 
     @property
+    def country(self):
+        return self.__country
+
+    @country.setter
+    def country(self, country):
+        self.__country = country
+
+    @property
     def address(self):
         return self.__address
 
@@ -205,14 +216,15 @@ class ForeignPassport(Passport):
                         - date_of_born - Дата рождения
                         - telephone - Номер телефона
                         - address - Адрес проживания
+                        - country - Страна
                         - number_foreign_passport - серийный номер загран-паспорта
                         - visa - Одобренная виза
                         Так же класс имеет следующие методы:
                         - свойства атрибутов (@property) для их вывода
                         - сеттеры атрибутов (@атрибут.setter) для изменения значений атрибутов """
-    def __init__(self, name: list, date_of_born: date, passport_series_number: int, address: str,
+    def __init__(self, name: list, date_of_born: date, passport_series_number: int, address: str, country: str,
                  number_foreign_passport: int, visa: str):
-        super().__init__(name, date_of_born, passport_series_number, address)
+        super().__init__(name, date_of_born, passport_series_number, country, address)
         self.__number_foreign_passport = number_foreign_passport
         self.__visa = visa
 
