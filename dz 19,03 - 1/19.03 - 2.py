@@ -5,6 +5,8 @@
 моряке), класс Pilot (содержит информацию о летчике). Каждый из классов
 должен содержать необходимые для работы методы."""
 from datetime import date
+
+
 class Human:
     """ Класс "Человек" описывает человека. Класс имеет атрибуты такие как:
         - name - ФИО
@@ -18,7 +20,6 @@ class Human:
         self.__name = name
         self.__date_of_born = date_of_born
         self.__telephone = telephone
-
 
     def __str__(self):
         """Метод для вывода информации всех значений атрибутов на печать"""
@@ -95,6 +96,7 @@ class Sailor(Human):
     def rank(self, rank):
         self.__rank = rank
 
+
 class Pilot(Human):
     """ Класс "Пилот" описывает пилота. Класс имеет атрибуты такие как:
                 - name - ФИО
@@ -115,7 +117,6 @@ class Pilot(Human):
     @flight_experience.setter
     def flight_experience(self, flight_experience):
         self.__flight_experience = flight_experience
-
 
 
 human1 = Human(['Земляникин', 'Геннадий', 'Петрович'], date(1984, 9, 4), '+7-964-136-5667')
@@ -230,7 +231,7 @@ class ForeignPassport(Passport):
 
     @property
     def number_foreign_passport(self):
-        return f'Номер загранпаспорта: {self.__number_foreign_passport}'
+        return f'Номер загран-паспорта: {self.__number_foreign_passport}'
 
     @number_foreign_passport.setter
     def number_foreign_passport(self, number_foreign_passport):
@@ -243,6 +244,7 @@ class ForeignPassport(Passport):
     @visa.setter
     def visa(self, visa):
         self.__visa = visa
+
 
 foreign_passport1 = ForeignPassport(['Путин', 'Владимир', 'Владимирович'],
                                     date(1955, 9, 4), 7808665644,
