@@ -1,4 +1,4 @@
-"""Задание 1
+"""Задание 1.
 Создайте базовый абстрактный класс Shape для хранения методов
 плоских фигур: area, perimeter, save, load. Определите следующие производные
 классы:
@@ -8,14 +8,14 @@ Rectangle — прямоугольник с заданными координа�
 левого угла и размерами;
 Circle — окружность с заданными координатами центра и радиусом;
 Ellipse — эллипс с заданными координатами верхнего угла описанного
-вокруг него прямоугольника со сторонами, параллельными осям координат,и
+вокруг него прямоугольника со сторонами, параллельными осям координат, и
 размерами этого прямоугольника.
 Создайте список фигур. Напишите функцию, которая сохраняет
 каждую фигуру в отдельный файл, загружает фигуру из файла и отображает
 информацию о каждой из фигур, включая площадь и периметр."""
 
 from abc import ABC, abstractmethod
-from math import pi
+from math import pi, sqrt
 
 
 class Shape(ABC):
@@ -267,7 +267,87 @@ print(round2)
 
 
 class Ellipse(Shape):
-    ...
+    def __init__(self, name: str, unit_of_measurement: str, point_of_reference: list, r1: int, r2: int):
+        self.__name = name
+        self.__unit_of_measurement = unit_of_measurement
+        self.__point_of_reference = point_of_reference
+        self.__r1 = r1
+        self.__r2 = r2
+
+    def __str__(self):
+        return (f'Название фигуры: {self.__name}\n'
+                f'Единицы измерения: {self.__unit_of_measurement}\n'
+                f'Координаты левого верхнего угла описанного прямоугольника: {self.__point_of_reference}\n'
+                f'Первый радиус: {self.__r1} {self.__unit_of_measurement}\n'
+                f'Второй радиус: {self.__r2} {self.__unit_of_measurement}')
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, name):
+        self.__name = name
+
+    @property
+    def unit_of_measurement(self):
+        return self.__unit_of_measurement
+
+    @unit_of_measurement.setter
+    def unit_of_measurement(self, unit_of_measurement):
+        self.__unit_of_measurement = unit_of_measurement
+
+    @property
+    def point_of_reference(self):
+        return self.__point_of_reference
+
+    @point_of_reference.setter
+    def point_of_reference(self, point_of_reference):
+        self.__point_of_reference = point_of_reference
+
+    @property
+    def r1(self):
+        return self.__r1
+
+    @r1.setter
+    def r1(self, r1):
+        self.__r1 = r1
+
+    @property
+    def r2(self):
+        return self.__r2
+
+    @r2.setter
+    def r2(self, r2):
+        self.__r2 = r2
+
+    def area(self):
+        return f'{round(self.__r1 * self.__r2 * pi), 2} Кв. {self.__unit_of_measurement}'
+
+    def perimeter(self):
+        return f'{round(2 * pi * sqrt(((self.__r1**2) + (self.__r2**2)/2))), 2}{self.__unit_of_measurement}'
+
+
+
+    def save(self):
+        lst = [('Фигура', ellipse1.__name), ('Площадь фигуры', ellipse1.area()), ('Периметр', ellipse1.perimeter())]
+        doc1 = ''
+        for i in lst:
+            doc1 += str(i[0] + ':' + '\t' + str(i[1])) + '\n'
+        rect = open('ellipse.txt', 'w', encoding='utf-8')
+        rect.write(str(doc1))
+        rect.close()
+
+    @classmethod
+    def load(cls, path: str) -> object:
+        with open(path, 'r', encoding='utf-8') as file:
+            figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
+        return cls(*figure)
+
+ellipse1 = Ellipse('Эллипс','См', [23, 34], 24, 36)
+print(ellipse1, '\n')
+ellipse2 = Ellipse.load('ellipse')
+print(ellipse2)
 
 # def manipulation():
 #     square1.area()
