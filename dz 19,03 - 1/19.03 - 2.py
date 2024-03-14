@@ -129,7 +129,7 @@ sailor1 = Sailor(['Карпов', 'Юрий', 'Иванович'], date(1985, 8,
 print(sailor1)
 print(sailor1.rank)
 pilot1 = Pilot(['Гагарин', 'Юрий', 'Алексеевич'], date(1934, 9, 3),
-               'None', 4)
+               '2-32-64', 4)
 print(pilot1)
 print(pilot1.flight_experience)
 
@@ -147,7 +147,7 @@ class Passport:
     """ Класс "Паспорт" описывает паспорт. Класс имеет атрибуты такие как:
                     - name - ФИО
                     - date_of_born - Дата рождения
-                    - telephone - Номер телефона
+                    - passport_series_number - серия и номер паспорта
                     - country - Страна
                     - address - Адрес проживания
                     Так же класс имеет следующие методы:
@@ -214,7 +214,7 @@ class ForeignPassport(Passport):
     """ Класс "Загран-паспорт" описывает загран-паспорт. Класс имеет атрибуты такие как:
                         - name - ФИО
                         - date_of_born - Дата рождения
-                        - telephone - Номер телефона
+                        - passport_series_number -Серия и номер паспорта
                         - address - Адрес проживания
                         - country - Страна
                         - number_foreign_passport - серийный номер загран-паспорта
@@ -246,7 +246,8 @@ class ForeignPassport(Passport):
 
 foreign_passport1 = ForeignPassport(['Путин', 'Владимир', 'Владимирович'],
                                     date(1955, 9, 4), 7808665644,
-                                    'Рыбная улица, 4', 2388492, 'Шенген')
+                                    'Рыбная улица, 4', 'Российская Федерация',
+                                    88577536, 'Шенген')
 print(foreign_passport1)
 print(foreign_passport1.number_foreign_passport)
 print(foreign_passport1.visa)

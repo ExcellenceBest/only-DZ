@@ -36,6 +36,7 @@ class Shape(ABC):
     def load(self, path):
         raise NotImplementedError
 
+
 class Square(Shape):
     def __init__(self, name: str, unit_of_measurement: str, point_of_reference: list, side: int):
         self.__name = name
@@ -81,21 +82,20 @@ class Square(Shape):
     def side(self, side):
         self.__side = side
 
-
     def area(self):
         return f'{self.side ** 2} Кв.{self.__unit_of_measurement}'
 
     def perimeter(self):
         return f'{self.side * 4} {self.__unit_of_measurement}'
 
-    def save(self):
-        lst = [('Фигура', square1.__name), ('Площадь фигуры', square1.area()), ('Периметр', square1.perimeter())]
-        doc1 = ''
-        for i in lst:
-            doc1 += str(i[0] + ':' + '\t' + str(i[1])) + '\n'
-        square = open('square.txt', 'w', encoding='utf-8')
-        square.write(str(doc1))
-        square.close()
+    # def save(self):
+    #     lst = [('Фигура', square1.__name), ('Площадь фигуры', square1.area()), ('Периметр', square1.perimeter())]
+    #     doc1 = ''
+    #     for i in lst:
+    #         doc1 += str(i[0] + ':' + '\t' + str(i[1])) + '\n'
+    #     square = open('square.txt', 'w', encoding='utf-8')
+    #     square.write(str(doc1))
+    #     square.close()
 
     @classmethod
     def load(cls, path: str) -> object:
@@ -172,7 +172,8 @@ class Rectangle(Shape):
         return f'{(self.__side_a + self.__side_b) * 2} {self.__unit_of_measurement}'
 
     def save(self):
-        lst = [('Фигура', rectangle1.__name), ('Площадь фигуры', rectangle1.area()), ('Периметр', rectangle1.perimeter())]
+        lst = [('Фигура', rectangle1.__name), ('Площадь фигуры', rectangle1.area()),
+               ('Периметр', rectangle1.perimeter())]
         doc1 = ''
         for i in lst:
             doc1 += str(i[0] + ':' + '\t' + str(i[1])) + '\n'
@@ -327,8 +328,6 @@ class Ellipse(Shape):
     def perimeter(self):
         return f'{round(2 * pi * sqrt(((self.__r1**2) + (self.__r2**2)/2))), 2}{self.__unit_of_measurement}'
 
-
-
     def save(self):
         lst = [('Фигура', ellipse1.__name), ('Площадь фигуры', ellipse1.area()), ('Периметр', ellipse1.perimeter())]
         doc1 = ''
@@ -344,7 +343,8 @@ class Ellipse(Shape):
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
         return cls(*figure)
 
-ellipse1 = Ellipse('Эллипс','См', [23, 34], 24, 36)
+
+ellipse1 = Ellipse('Эллипс', 'См', [23, 34], 24, 36)
 print(ellipse1, '\n')
 ellipse2 = Ellipse.load('ellipse')
 print(ellipse2)
@@ -360,4 +360,3 @@ print(ellipse2)
 #     print(round1.load("round.txt"))
 #
 # manipulation()
-
