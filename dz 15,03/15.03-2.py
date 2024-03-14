@@ -41,8 +41,8 @@ class Human:
 
     def __str__(self):
         """Метод для вывода информации всех значений атрибутов на печать"""
-        self.name = " ".join(str(i) for i in self.__name)
-        return (f'ФИО: {self.name}\n'
+        self.__name = " ".join(str(i) for i in self.__name)
+        return (f'ФИО: {self.__name}\n'
                 f'Дата рождения: {self.__date_of_born}\n'
                 f'Телефон: {self.__telephone}')
 
