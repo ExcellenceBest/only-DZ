@@ -88,14 +88,18 @@ class Square(Shape):
     def perimeter(self):
         return f'{self.side * 4} {self.__unit_of_measurement}'
 
-    # def save(self):
-    #     lst = [('Фигура', square1.__name), ('Площадь фигуры', square1.area()), ('Периметр', square1.perimeter())]
-    #     doc1 = ''
-    #     for i in lst:
-    #         doc1 += str(i[0] + ':' + '\t' + str(i[1])) + '\n'
-    #     square = open('square.txt', 'w', encoding='utf-8')
-    #     square.write(str(doc1))
-    #     square.close()
+    def save(self):
+        lst = [('Фигура', square1.__name), ('Единицы измерения', square1.__unit_of_measurement),
+               ('Координаты левого верхнего угла', square1.__point_of_reference), ('Длина стороны',
+                square1.__side), ('Площадь фигуры', square1.area()), ('Периметр', square1.perimeter())]
+        doc1 = ''
+        file = 'square.txt'
+        for i in lst:
+            doc1 += str(i[0] + ':' + '\t' + str(i[1])) + '\n'
+        square = open(file, 'w', encoding='utf-8')
+        square.write(str(doc1))
+        square.close()
+        return file
 
     @classmethod
     def load(cls, path: str) -> object:
@@ -104,10 +108,10 @@ class Square(Shape):
         return cls(*figure)
 
 
-square1 = Square('Квадрат', 'См', [2, 2], 5)
-square2 = Square.load('square')
-print(square1, '\n')
-print(square2, '\n')
+square1 = Square('Квадрат', 'М', [2, 2], 5)
+#square2 = Square.load('square')
+#print(square1, '\n')
+#print(square2, '\n')
 
 
 class Rectangle(Shape):
@@ -172,14 +176,18 @@ class Rectangle(Shape):
         return f'{(self.__side_a + self.__side_b) * 2} {self.__unit_of_measurement}'
 
     def save(self):
-        lst = [('Фигура', rectangle1.__name), ('Площадь фигуры', rectangle1.area()),
+        lst = [('Фигура', rectangle1.__name), ('Единицы измерения', rectangle1.__unit_of_measurement),
+               ('Координаты левого верхнего угла', rectangle1.__point_of_reference), ('Длина стороны A',
+                rectangle1.__side_a), ('Длина стороны B', rectangle1.__side_b), ('Площадь фигуры', rectangle1.area()),
                ('Периметр', rectangle1.perimeter())]
         doc1 = ''
+        file = 'rect.txt'
         for i in lst:
             doc1 += str(i[0] + ':' + '\t' + str(i[1])) + '\n'
-        rect = open('rect.txt', 'w', encoding='utf-8')
+        rect = open(file, 'w', encoding='utf-8')
         rect.write(str(doc1))
         rect.close()
+        return file
 
     @classmethod
     def load(cls, path: str) -> object:
@@ -188,10 +196,10 @@ class Rectangle(Shape):
         return cls(*figure)
 
 
-rectangle1 = Rectangle('Прямоугольник', 'См', [4, 4], 8, 12)
-print(rectangle1, '\n')
-rectangle2 = Rectangle.load('rect')
-print(rectangle2, '\n')
+rectangle1 = Rectangle('Прямоугольник', 'мм', [4, 4], 8, 12)
+#print(rectangle1, '\n')
+#rectangle2 = Rectangle.load('rect')
+#print(rectangle2, '\n')
 
 
 class Circle(Shape):
@@ -205,7 +213,7 @@ class Circle(Shape):
         return (f'Название фигуры: {self.__name}\n'
                 f'Единицы измерения: {self.__unit_of_measurement}\n'
                 f'Координаты центра окружности: {self.__point_of_reference}\n'
-                f'Радиус: {self.__radius} {self.__unit_of_measurement}\n')
+                f'Радиус: {self.__radius} {self.__unit_of_measurement}')
 
     @property
     def name(self):
@@ -246,13 +254,17 @@ class Circle(Shape):
         return f'{round(2 * pi * self.__radius), 2} {self.__unit_of_measurement}'
 
     def save(self):
-        lst = [('Фигура', round1.__name), ('Площадь фигуры', round1.area()), ('Периметр', round1.perimeter())]
+        lst = [('Фигура', round1.__name), ('Единицы измерения', round1.__unit_of_measurement),
+               ('Координаты левого верхнего угла', round1.__point_of_reference), ('Радиус', round1.__radius),
+               ('Площадь фигуры', round1.area()), ('Периметр', round1.perimeter())]
         doc1 = ''
+        file = 'round.txt'
         for i in lst:
             doc1 += str(i[0] + ':' + '\t' + str(i[1])) + '\n'
-        round = open('round.txt', 'w', encoding='utf-8')
+        round = open(file, 'w', encoding='utf-8')
         round.write(str(doc1))
         round.close()
+        return file
 
     @classmethod
     def load(cls, path: str) -> object:
@@ -262,9 +274,9 @@ class Circle(Shape):
 
 
 round1 = Circle('Окружность', 'См', [6, 6], 4)
-print(round1)
-round2 = Circle.load('round')
-print(round2)
+#print(round1)
+#round2 = Circle.load('round')
+#print(round2)
 
 
 class Ellipse(Shape):
@@ -329,14 +341,18 @@ class Ellipse(Shape):
         return f'{round(2 * pi * sqrt(((self.__r1**2) + (self.__r2**2)/2))), 2}{self.__unit_of_measurement}'
 
     def save(self):
-        lst = [('Фигура', ellipse1.__name), ('Площадь фигуры', ellipse1.area()), ('Периметр', ellipse1.perimeter())]
+        lst = [('Фигура', ellipse1.__name), ('Единицы измерения', ellipse1.__unit_of_measurement),
+               ('Координаты левого верхнего угла описанного прямоугольника', ellipse1.__point_of_reference),
+               ('Первый радиус', ellipse1.__r1), ('Второй радиус', ellipse1.__r2),
+            ('Площадь фигуры', ellipse1.area()), ('Периметр', ellipse1.perimeter())]
         doc1 = ''
+        file = 'ellipse.txt'
         for i in lst:
             doc1 += str(i[0] + ':' + '\t' + str(i[1])) + '\n'
-        rect = open('ellipse.txt', 'w', encoding='utf-8')
+        rect = open(file, 'w', encoding='utf-8')
         rect.write(str(doc1))
         rect.close()
-
+        return file
     @classmethod
     def load(cls, path: str) -> object:
         with open(path, 'r', encoding='utf-8') as file:
@@ -344,19 +360,20 @@ class Ellipse(Shape):
         return cls(*figure)
 
 
-ellipse1 = Ellipse('Эллипс', 'См', [23, 34], 24, 36)
-print(ellipse1, '\n')
-ellipse2 = Ellipse.load('ellipse')
-print(ellipse2)
+ellipse1 = Ellipse('Эллипс', 'Дм', [23, 34], 24, 36)
+#print(ellipse1, '\n')
+#ellipse2 = Ellipse.load('ellipse')
+#print(ellipse2)
 
-# def manipulation():
-#     square1.area()
-#     square1.perimeter()
-#     square1.save()
-#     print(square1.load('square.txt'))
-#     round1.area()
-#     round1.perimeter()
-#     round1.save()
-#     print(round1.load("round.txt"))
-#
-# manipulation()
+
+def manipulation(figures: Shape):
+    for i in figures:
+        print(f'{i}\n'
+              f'Площадь фигуры: {i.area()}\n'
+              f'Периметр фигуры: {i.perimeter()}\n'
+              f'Данные фигуры записаны в файл {i.save()}\n')
+
+
+figures = [square1, rectangle1, round1, ellipse1]
+manipulation(figures)
+
