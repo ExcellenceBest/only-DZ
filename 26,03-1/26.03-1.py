@@ -90,8 +90,8 @@ class Square(Shape):
 
     def save(self):
         lst = [('Фигура', square1.__name), ('Единицы измерения', square1.__unit_of_measurement),
-               ('Координаты левого верхнего угла', square1.__point_of_reference), ('Длина стороны',
-                square1.__side), ('Площадь фигуры', square1.area()), ('Периметр', square1.perimeter())]
+               ('Координаты левого верхнего угла', square1.__point_of_reference), ('Длина стороны', square1.__side),
+               ('Площадь фигуры', square1.area()), ('Периметр', square1.perimeter())]
         doc1 = ''
         file = 'square.txt'
         for i in lst:
@@ -103,6 +103,7 @@ class Square(Shape):
 
     @classmethod
     def load(cls, path: str) -> object:
+        path = input('Введите название файла для загрузки квадрата: ')
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
         return cls(*figure)
@@ -191,6 +192,7 @@ class Rectangle(Shape):
 
     @classmethod
     def load(cls, path: str) -> object:
+        path = input('Введите название файла для загрузки Прямоугольника: ')
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
         return cls(*figure)
@@ -198,7 +200,7 @@ class Rectangle(Shape):
 
 rectangle1 = Rectangle('Прямоугольник', 'мм', [4, 4], 8, 12)
 #print(rectangle1, '\n')
-#rectangle2 = Rectangle.load('rect')
+#rectangle2 = Rectangle.load('rectangle')
 #print(rectangle2, '\n')
 
 
@@ -268,6 +270,7 @@ class Circle(Shape):
 
     @classmethod
     def load(cls, path: str) -> object:
+        path = input('Введите название файла для загрузки Окружности: ')
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
         return cls(*figure)
@@ -353,27 +356,33 @@ class Ellipse(Shape):
         rect.write(str(doc1))
         rect.close()
         return file
+
     @classmethod
     def load(cls, path: str) -> object:
+        path = input('Введите название файла для загрузки Эллипса: ')
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
         return cls(*figure)
 
 
 ellipse1 = Ellipse('Эллипс', 'Дм', [23, 34], 24, 36)
-#print(ellipse1, '\n')
 #ellipse2 = Ellipse.load('ellipse')
 #print(ellipse2)
 
+figures = [square1, rectangle1, round1, ellipse1]
 
-def manipulation(figures: Shape):
-    for i in figures:
+collection = {square1: 'square', rectangle1: 'rectangle', round1: 'round', ellipse1: 'ellipse'}
+
+
+
+def manipulation(collect: dict):
+    for i in collect:
         print(f'{i}\n'
               f'Площадь фигуры: {i.area()}\n'
               f'Периметр фигуры: {i.perimeter()}\n'
-              f'Данные фигуры записаны в файл {i.save()}\n')
+              f'Данные фигуры записаны в файл {i.save()}\n\n'
+              f'Фигура загружена из файла.\n{i.load(str)}\n')
 
 
-figures = [square1, rectangle1, round1, ellipse1]
 manipulation(figures)
 
