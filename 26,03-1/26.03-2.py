@@ -96,7 +96,7 @@ def game(figure: HorseFigure):
     horse1.move(('D', '6'))
     print(horse1.get_coord())
 
-game(horse1)
+#game(horse1)
 
 """
 Задание 2
@@ -108,3 +108,49 @@ game(horse1)
  Сменить пароль
 Создайте класс Employee - наследника, класса SystemUser и выполните вход
 и выход в системе."""
+
+class SystemUser(ABC):
+
+    __status = False
+
+    @abstractmethod
+    def info(self):
+        ...
+
+    @abstractmethod
+    def log_in(self):
+        ...
+
+    @abstractmethod
+    def log_out(self):
+
+        ...
+    @abstractmethod
+    def change_password(self, password):
+        ...
+
+
+class Employee(SystemUser):
+
+    def __init__(self, login: str, password: str):
+        self.login = login
+        self.password = password
+
+
+    @property
+    def info(self):
+        return self.login, self.password
+
+
+    def change_password(self, password):
+        self.password = password
+
+
+    def log_in(self):
+        self.s
+
+    def log_out(self):
+        ...
+
+user1 = Employee('login', 'password')
+print(user1.info)
