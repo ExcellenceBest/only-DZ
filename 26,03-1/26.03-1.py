@@ -103,17 +103,15 @@ class Square(Shape):
 
     @classmethod
     def load(cls, path: str) -> object:
-        path = input('Введите название файла для загрузки квадрата: ')
+        #path = input('Введите название файла для загрузки квадрата: ')
+        path = 'square'
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
+            figure[3] = int(figure[3])
         return cls(*figure)
 
 
 square1 = Square('Квадрат', 'М', [2, 2], 5)
-#square2 = Square.load('square')
-#print(square1, '\n')
-#print(square2, '\n')
-
 
 class Rectangle(Shape):
     def __init__(self, name: str, unit_of_measurement: str, point_of_reference: list, side_a: int, side_b: int):
@@ -192,16 +190,15 @@ class Rectangle(Shape):
 
     @classmethod
     def load(cls, path: str) -> object:
-        path = input('Введите название файла для загрузки Прямоугольника: ')
+        path = 'rectangle'
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
+            figure[3] = int(figure[3])
+            figure[4] = int(figure[4])
         return cls(*figure)
 
 
 rectangle1 = Rectangle('Прямоугольник', 'мм', [4, 4], 8, 12)
-#print(rectangle1, '\n')
-#rectangle2 = Rectangle.load('rectangle')
-#print(rectangle2, '\n')
 
 
 class Circle(Shape):
@@ -270,17 +267,14 @@ class Circle(Shape):
 
     @classmethod
     def load(cls, path: str) -> object:
-        path = input('Введите название файла для загрузки Окружности: ')
+        path = 'round'
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
+            figure[3] = float(figure[3])
         return cls(*figure)
 
 
 round1 = Circle('Окружность', 'См', [6, 6], 4)
-#print(round1)
-#round2 = Circle.load('round')
-#print(round2)
-
 
 class Ellipse(Shape):
     def __init__(self, name: str, unit_of_measurement: str, point_of_reference: list, r1: int, r2: int):
@@ -338,10 +332,10 @@ class Ellipse(Shape):
         self.__r2 = r2
 
     def area(self):
-        return f'{round(self.__r1 * self.__r2 * pi), 2} Кв. {self.__unit_of_measurement}'
+        return f'{round(int(self.__r1) * int(self.__r2) * pi),2} Кв. {self.__unit_of_measurement}'
 
-    def perimeter(self):
-        return f'{round(2 * pi * sqrt(((self.__r1**2) + (self.__r2**2)/2))), 2}{self.__unit_of_measurement}'
+    def perimeter(self) -> float:
+        return f'{round(2 * pi * sqrt(((int(self.__r1)**2) + (int(self.__r2)**2)/2))), 2}{self.__unit_of_measurement}'
 
     def save(self):
         lst = [('Фигура', ellipse1.__name), ('Единицы измерения', ellipse1.__unit_of_measurement),
@@ -359,30 +353,34 @@ class Ellipse(Shape):
 
     @classmethod
     def load(cls, path: str) -> object:
-        path = input('Введите название файла для загрузки Эллипса: ')
+        path = 'ellipse'
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
         return cls(*figure)
 
 
 ellipse1 = Ellipse('Эллипс', 'Дм', [23, 34], 24, 36)
-#ellipse2 = Ellipse.load('ellipse')
-#print(ellipse2)
 
 figures = [square1, rectangle1, round1, ellipse1]
 
-collection = {square1: 'square', rectangle1: 'rectangle', round1: 'round', ellipse1: 'ellipse'}
-
-
-
-def manipulation(collect: dict):
-    for i in collect:
+def manipulation(figures: Shape):
+    for i in figures:
         print(f'{i}\n'
               f'Площадь фигуры: {i.area()}\n'
               f'Периметр фигуры: {i.perimeter()}\n'
               f'Данные фигуры записаны в файл {i.save()}\n\n'
-              f'Фигура загружена из файла.\n{i.load(str)}\n')
+              f'Фигура загружена из файла.\n{i.load(str)}\n'
+              f'Площадь равна: {i.load(str).area()}\n'
+              f'Периметр равен: {i.load(str).perimeter()}\n')
 
+def main():
+    try:
+        manipulation(figures)
+    except ValueError as e:
+        print(e)
+    else:
+        print('Программа завершена')
 
-manipulation(figures)
+if __name__ == '__main__':
+    main()
 
