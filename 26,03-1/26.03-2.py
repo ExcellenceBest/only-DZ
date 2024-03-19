@@ -111,7 +111,7 @@ def game(figure: HorseFigure):
 
 class SystemUser(ABC):
 
-    __status = False
+    _status = False
 
     @abstractmethod
     def info(self):
@@ -123,34 +123,119 @@ class SystemUser(ABC):
 
     @abstractmethod
     def log_out(self):
-
         ...
+
     @abstractmethod
-    def change_password(self, password):
+    def change_password(self, key: str, value: str, bd: dict):
         ...
 
 
-class Employee(SystemUser):
+class InitUser(SystemUser):
 
     def __init__(self, login: str, password: str):
         self.login = login
         self.password = password
 
+    @staticmethod
+    def create_bd(path: str):
+        with open(path, 'r', encoding='utf-8') as file:
+            bd1 = list(map(lambda x: x.rstrip('\n'), file.readlines()))
+            result = {}
+            for i in bd1:
+                index = str.find(i, ',')
+                fragment = i[(index + 1):]
+                fragment1 = i[:index]
+                result[fragment1] = fragment
+        return result
+
+    bd = create_bd('bd.txt')
+
+
+
+    def check_login(self: SystemUser, bd=bd):
+        key, value = self.info()
+        if key not in bd:
+             print('Пользователь не зарегистрирован!')
+             return False
+        else:
+            print('Пользователь зарегистрирован!')
+            return True
+
+
+    def change_password(self: SystemUser, bd=bd):
+        key, value = self.info()
+        if bd.keys() == value:
+            return False
+            print('Пароль совпадает с предыдущим!')
+        else:
+            return bd.update({key: value})
+
+
+class Employee(SystemUser):
+
+    def __init__(self, login: str, password: str):
+        self._login = login
+        self._password = password
+
+    def info(self):
+        return self._login, self._password
+
 
     @property
-    def info(self):
-        return self.login, self.password
+    def login(self):
+        return self._login
+
+    @property
+    def password(self):
+        return self._password
 
 
-    def change_password(self, password):
-        self.password = password
+    def change_password(self: SystemUser):
+        if InitUser.change_password(self):
+            print('Пароль успешно изменен!')
+        else:
+            print('Пароль совпадает с предыдущим!')
 
 
-    def log_in(self):
-        self.s
+
+
+
+    def log_in(self: SystemUser):
+        if InitUser.check_login(self):
+            if not self._status:
+                self._status = True
+                print('Вы вошли в систему!')
+            else:
+                print('Пользователь в сети!')
+        else:
+            print("Пользователь отсутствует, требуется регистрация!")
+
 
     def log_out(self):
-        ...
+        if self._status:
+            self._status = False
+            print('Вы вышли из системы!')
+        else:
+            print('Пользователь не в сети!')
 
-user1 = Employee('login', 'password')
-print(user1.info)
+    @login.setter
+    def login(self, login):
+        self._login = login
+
+    @password.setter
+    def password(self, password):
+        self._password = password
+
+
+user1 = Employee('admin', '123456')
+admin2 = Employee('admin2', '55555')
+print(InitUser.create_bd('bd.txt'))
+#user1.log_in()
+
+user1.change_password('12121')
+
+
+# def logging(user: SystemUser):
+#     user.log_in()
+#
+# logging(user1)
