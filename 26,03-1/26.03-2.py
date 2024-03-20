@@ -126,17 +126,14 @@ class SystemUser(ABC):
         ...
 
     @abstractmethod
-    def change_password(self, key: str, value: str, bd: dict):
+    def change_password(self):
         ...
 
+class InitUser:
+    # def __init__(self, login: str, password: str):
+    #     self.login = login
+    #     self.password = password
 
-class InitUser(SystemUser):
-
-    def __init__(self, login: str, password: str):
-        self.login = login
-        self.password = password
-
-    @staticmethod
     def create_bd(path: str):
         with open(path, 'r', encoding='utf-8') as file:
             bd1 = list(map(lambda x: x.rstrip('\n'), file.readlines()))
@@ -148,13 +145,13 @@ class InitUser(SystemUser):
                 result[fragment1] = fragment
         return result
 
-    bd = create_bd('bd.txt')
+    _bd = create_bd('bd.txt')
 
 
 
-    def check_login(self: SystemUser, bd=bd):
+    def check_login(self: SystemUser, _bd):
         key, value = self.info()
-        if key not in bd:
+        if key not in _bd:
              print('Пользователь не зарегистрирован!')
              return False
         else:
@@ -162,13 +159,15 @@ class InitUser(SystemUser):
             return True
 
 
-    def change_password(self: SystemUser, bd=bd):
-        key, value = self.info()
-        if bd.keys() == value:
+    def change_password():
+        key, value = use.info()
+        if _bd.keys == password:
             return False
             print('Пароль совпадает с предыдущим!')
         else:
-            return bd.update({key: value})
+            return _bd.update({key: password})
+
+
 
 
 class Employee(SystemUser):
@@ -189,19 +188,16 @@ class Employee(SystemUser):
     def password(self):
         return self._password
 
-
-    def change_password(self: SystemUser):
-        if InitUser.change_password(self):
+    @staticmethod
+    def change_password(use: SystemUser, password):
+        if InitUser.change_password(use, password, dict):
             print('Пароль успешно изменен!')
         else:
             print('Пароль совпадает с предыдущим!')
 
 
-
-
-
-    def log_in(self: SystemUser):
-        if InitUser.check_login(self):
+    def log_in(self):
+        if InitUser.check_login(user1):
             if not self._status:
                 self._status = True
                 print('Вы вошли в систему!')
@@ -209,7 +205,6 @@ class Employee(SystemUser):
                 print('Пользователь в сети!')
         else:
             print("Пользователь отсутствует, требуется регистрация!")
-
 
     def log_out(self):
         if self._status:
@@ -227,12 +222,12 @@ class Employee(SystemUser):
         self._password = password
 
 
-user1 = Employee('admin', '123456')
-admin2 = Employee('admin2', '55555')
-print(InitUser.create_bd('bd.txt'))
-#user1.log_in()
-
-user1.change_password('12121')
+# user1 = Employee('admin', '123456')
+# admin2 = Employee('admin2', '55555')
+# print(InitUser.create_bd('bd.txt'))
+# #user1.log_in()
+#
+# user1.change_password(user1, '999')
 
 
 # def logging(user: SystemUser):
