@@ -96,7 +96,7 @@ def game(figure: HorseFigure):
     horse1.move(('D', '6'))
     print(horse1.get_coord())
 
-#game(horse1)
+game(horse1)
 
 """
 Задание 2
@@ -109,8 +109,10 @@ def game(figure: HorseFigure):
 Создайте класс Employee - наследника, класса SystemUser и выполните вход
 и выход в системе."""
 
-class SystemUser(ABC):
+from abc import ABC, abstractmethod
 
+
+class SystemUser(ABC):
     _status = False
 
     @abstractmethod
@@ -126,48 +128,66 @@ class SystemUser(ABC):
         ...
 
     @abstractmethod
-    def change_password(self):
+    def change_password(self, new_pass):
         ...
 
-class InitUser:
-    # def __init__(self, login: str, password: str):
-    #     self.login = login
-    #     self.password = password
 
-    def create_bd(path: str):
-        with open(path, 'r', encoding='utf-8') as file:
+class InitUser(SystemUser):
+
+    path = 'bd.txt'
+
+    def __init__(self, login: str, password: str):
+        self.login = login
+        self.password = password
+
+    @staticmethod
+    def init_bd(login, new_pass):
+        with open(InitUser.path, 'r', encoding='utf-8') as file:
             bd1 = list(map(lambda x: x.rstrip('\n'), file.readlines()))
             result = {}
+            new_bd = ''
+            if not bd1:
+                result[login] = new_pass
             for i in bd1:
                 index = str.find(i, ',')
-                fragment = i[(index + 1):]
-                fragment1 = i[:index]
-                result[fragment1] = fragment
+                log = i[:index]
+                password = i[(index + 1):]
+                if log == login:
+                    result[log] = new_pass
+                else:
+                    result[log] = password
+            if login not in result:
+                result[login] = password
+            for k, v in result.items():
+                new_bd += k + ',' + v + '\n'
+            bd3 = open('bd.txt', 'w', encoding='utf-8')
+            bd3.write(new_bd)
+            bd3.close()
         return result
 
-    _bd = create_bd('bd.txt')
-
-
-
-    def check_login(self: SystemUser, _bd):
+    def check_login(self):
         key, value = self.info()
-        if key not in _bd:
-             print('Пользователь не зарегистрирован!')
-             return False
-        else:
-            print('Пользователь зарегистрирован!')
-            return True
+        return False if key not in _bd else True
 
+    def change_password(self, new_pass):
+        (key, value) = self.info()
+        return True if _bd[key] == new_pass else False
 
-    def change_password():
-        key, value = use.info()
-        if _bd.keys == password:
-            return False
-            print('Пароль совпадает с предыдущим!')
-        else:
-            return _bd.update({key: password})
+    @staticmethod
+    def registration(login, password):
+        InitUser.init_bd(login, password)
 
+    def info(self):
+        return self.login, self.password
 
+    def login(self):
+        return self.login
+
+    def log_out(self):
+        ...
+
+    def log_in(self):
+        ...
 
 
 class Employee(SystemUser):
@@ -179,58 +199,48 @@ class Employee(SystemUser):
     def info(self):
         return self._login, self._password
 
-
-    @property
     def login(self):
         return self._login
 
-    @property
-    def password(self):
-        return self._password
-
-    @staticmethod
-    def change_password(use: SystemUser, password):
-        if InitUser.change_password(use, password, dict):
-            print('Пароль успешно изменен!')
-        else:
-            print('Пароль совпадает с предыдущим!')
-
-
     def log_in(self):
-        if InitUser.check_login(user1):
-            if not self._status:
-                self._status = True
-                print('Вы вошли в систему!')
-            else:
-                print('Пользователь в сети!')
+        if InitUser.check_login(self):
+            print(f'{self._login} Вы в сети')
+            _status = True
         else:
-            print("Пользователь отсутствует, требуется регистрация!")
+            print('Пользователь не зарегистрирован!\n'
+                  'Желаете зарегистрироваться?')
 
     def log_out(self):
-        if self._status:
-            self._status = False
-            print('Вы вышли из системы!')
+        _status = False
+        print(f'{self._login} Вы вышли из сети!')
+
+    def change_password(self, new_pass):
+        if InitUser.change_password(self, new_pass):
+            print('Пароль совпадает с предыдущим!')
         else:
-            print('Пользователь не в сети!')
+            self._password = new_pass
+            login = self._login
+            InitUser.init_bd(login, new_pass)
+            print(f'{self._login} Пароль успешно изменен!')
 
-    @login.setter
-    def login(self, login):
-        self._login = login
+    @staticmethod
+    def registration(login: str, password: str):
+        InitUser.registration(login, password)
+        print(f'{login} Вы зарегистрированы!')
 
-    @password.setter
-    def password(self, password):
-        self._password = password
+_bd = InitUser.init_bd('admin', '00000')
+best_user = Employee('admin', 'week0497')
+guest1 = Employee('user1', '1111')
+guest2 = Employee('user2', '22222')
+guest3 = Employee('user3', '333')
+guest1.registration('user1', '1111')
+guest3.registration('user3', '333')
+best_user.registration('admin', 'week0497')
+best_user.change_password('dfhsathfd')
+def logging(user: SystemUser):
+    user.log_in()
+    user.log_out()
 
+logging(guest1)
+logging(guest3)
 
-# user1 = Employee('admin', '123456')
-# admin2 = Employee('admin2', '55555')
-# print(InitUser.create_bd('bd.txt'))
-# #user1.log_in()
-#
-# user1.change_password(user1, '999')
-
-
-# def logging(user: SystemUser):
-#     user.log_in()
-#
-# logging(user1)
