@@ -1,4 +1,6 @@
-from  abc import ABC, abstractmethod
+from abc import ABC, abstractmethod
+
+
 class SystemUser(ABC):
     _status = False
 
@@ -28,31 +30,12 @@ class InitUser(SystemUser):
         self.login = login
         self.password = password
 
-    # @classmethod
-    # def renew_bd(cls, _bd):
-    #     return cls._bd == InitUser.read_bd(path)
-
-    def __str__(self):
-        return f' База:{self._bd}'
-
     @staticmethod
-    def save_bd(_bd):
-        new_bd = ''
-        for k, v in _bd.items():
-            new_bd += k + ',' + v + '\n'
-        print(f' измененная база\n{new_bd}')
-        bd3 = open('bd3', 'w', encoding='utf-8')
-        bd3.write(new_bd)
-        bd3.close()
-
-
-    @staticmethod
-    def read_bd(path: str, login=None, new_pass=None):
-        with open(path, 'r', encoding='utf-8') as file:
+    def init_bd(login=None, new_pass=None):
+        with open('bd.txt', 'r', encoding='utf-8') as file:
             bd1 = list(map(lambda x: x.rstrip('\n'), file.readlines()))
             result = {}
-            print(login)
-            print(new_pass)
+            new_bd = ''
             for i in bd1:
                 index = str.find(i, ',')
                 log = i[:index]
@@ -61,9 +44,14 @@ class InitUser(SystemUser):
                     result[log] = new_pass
                 else:
                     result[log] = password
-                print(result)
+            if login not in result:
+                result[login] = password
+            for k, v in result.items():
+                new_bd += k + ',' + v + '\n'
+            bd3 = open('bd.txt', 'w', encoding='utf-8')
+            bd3.write(new_bd)
+            bd3.close()
         return result
-
 
     def check_login(self):
         key, value = self.info()
@@ -72,6 +60,10 @@ class InitUser(SystemUser):
     def change_password(self, new_pass):
         (key, value) = self.info()
         return True if _bd[key] == new_pass else False
+
+    @staticmethod
+    def registration(login, password):
+        InitUser.init_bd(login, password)
 
     def info(self):
         return self.login, self.password
@@ -88,7 +80,6 @@ class Employee(SystemUser):
     def __init__(self, login: str, password: str):
         self._login = login
         self._password = password
-
 
     def info(self):
         return self._login, self._password
@@ -112,26 +103,27 @@ class Employee(SystemUser):
         else:
             self._password = new_pass
             login = self._login
-            InitUser.read_bd('bd.txt', login, new_pass)
-            InitUser.save_bd(_bd)
+            InitUser.init_bd(login, new_pass)
             print('Пароль успешно изменен!')
 
+    @staticmethod
+    def registration(login, password):
+        InitUser.registration(login, password)
 
-
-_bd = InitUser.read_bd('bd.txt')
 
 best_user = Employee('admin', 'week0497')
 guest1 = Employee('user1', '1111')
 guest2 = Employee('user2', '22222')
 guest3 = Employee('user3', '333')
-
+_bd = InitUser.init_bd('bd.txt')
+guest3.registration('user3', '333')
 print(best_user.info())
-# guest3.log_in()
+guest3.log_in()
+print(_bd)
 best_user.change_password('12345')
 print(best_user.info())
-_bd = InitUser.read_bd('bd.txt',None, None)
 print(_bd)
-print(best_user.info())
+# print(best_user.info())
 
 
 # def check_login(key: str):
