@@ -109,7 +109,6 @@ game(horse1)
 Создайте класс Employee - наследника, класса SystemUser и выполните вход
 и выход в системе."""
 
-from abc import ABC, abstractmethod
 
 
 class SystemUser(ABC):
