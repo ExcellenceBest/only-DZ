@@ -9,13 +9,9 @@ class Car:
     """
     Класс Авто описывает автомобиль.
     Атрибуты класса:
-    - mark - Марка авто
-    - year_of_production - год выпуска
-    - color - цвет
-    Методы:
-        - свойства атрибутов (@property) для их вывода
-        - сеттеры атрибутов (@атрибут.setter) для изменения значений атрибутов
-    """
+    - mark: str - Марка авто
+    - year_of_production: date - год выпуска
+    - color: str - цвет """
 
     def __init__(self, mark: str, year_of_production: int, color: str):
         self.__mark = mark
@@ -85,6 +81,12 @@ print(electric_car.battery_capacity)
 
 
 class Device:
+    """Класс содержит информацию об устройстве
+    Atributs:
+    - title: str - название девайса
+    - color: str - цвет
+    - memory_capacity: int -  объем памяти"""
+
     def __init__(self, title: str, color: str, memory_capacity: int):
         self.__title = title
         self.__color = color
@@ -121,6 +123,14 @@ class Device:
 
 
 class MobilePhone(Device):
+    """Класс содержит информацию об устройстве
+        Atributs:
+        - title: str - название девайса
+        - color: str - цвет
+        - memory_capacity: int -  объем памяти
+        - battery_capacity: int - емкость батареи
+        - display_size: float - размер диагонали"""
+
     def __init__(self, title: str, color: str, memory_capacity: int,
                  battery_capacity: int, display_size: float):
         super().__init__(title, color, memory_capacity)
