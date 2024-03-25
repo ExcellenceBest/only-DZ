@@ -10,18 +10,18 @@
 Реализуйте статический метод, который вычисляет возраст человека
 относительно текущего дня по переданной дате рождения """
 
-from datetime import datetime, date
+from datetime import date
 
 
 class Human:
-    """ Класс "Человек" описывает человека. Класс имеет атрибуты такие как:
-        - name - ФИО
-        - date_of_born - Дата рождения
-        - telephone - Номер телефона
-        Так же класс имеет следующие методы:
-        - свойства атрибутов (@property) для их вывода
-        - сеттеры атрибутов (@атрибут.setter) для изменения значений атрибутов
-        - create_human_alternative - класс-метод для создания объекта """
+    """ Класс "Человек" описывает человека.
+        Atribute:
+        - name: list  - Фамилия , Имя , Отчество
+        - date_of_born: date - Дата рождения
+        - telephone: str - Номер телефона
+        Methods:
+        - create_human_alternative - метод класса для создания объекта альтернативным способом
+         - lived_through  - метод для вычисления возраста. """
 
     def __init__(self, name: list, date_of_born: date, telephone: str):
         self.__name = name
@@ -29,15 +29,13 @@ class Human:
         self.__telephone = telephone
 
     @classmethod
-    def create_human_alternative(cls, path: str) -> object:
+    def create_human_alternative(cls, name: list, date_of_born: date, telephone: str) -> object:
         """Метод позволяет создавать экземпляры класса альтернативным способом,
-        принимает в себя параметр path: str(путь к файлу) и возвращает объект класса."""
-        with open(path, 'r', encoding='utf-8') as file:
-            create_human = list(map(lambda x: x.rstrip('\n'), file.readlines()))
-            create_human[0] = create_human[0].split(' ')
-            create_human[1] = datetime.strptime(create_human[1], '%Y, %m, %d')
-            create_human[2] = str(create_human[2])
-        return cls(*create_human)
+        принимает в себя параметр name, date_of_born, telephone и возвращает объект класса."""
+        name = name
+        date_of_born = date_of_born
+        telephone = telephone
+        return cls(name, date_of_born, telephone)
 
     def __str__(self):
         """Метод для вывода информации всех значений атрибутов на печать"""
@@ -81,7 +79,7 @@ class Human:
 human1 = Human(['Иванов', 'Иван', 'Иванович'], date(1984, 9, 4), '+7-964-136-5667')
 print(human1)
 print(human1.lived_through(human1.date_of_born))
-human2 = Human.create_human_alternative('Human.txt')
+human2 = Human.create_human_alternative(["Бодров", "Сергей", "Андреевич"], date(1999, 2, 4), "8-999-345-23-23")
 print(human2)
 print(human2.lived_through(human2.date_of_born))
 
@@ -101,15 +99,14 @@ print(human2.lived_through(human2.date_of_born))
 
 
 class Book:
-    """Класс 'Книга' описывает книги и их параметры. Класс имеет следующие атрибуты:
-        - title_book - Название книги
-        - genre - жанр
-        - year_of_release - год выпуска
-        Так же класс имеет следующие методы:
+    """Класс 'Книга' описывает книги и их параметры.
+        Atributes:
+        - title_book: str - Название книги
+        - genre: str - жанр
+        - year_of_release: date - год выпуска
+        Methods:
         - type_of_book -  получение данных о типе экземпляра книги
-        - change_type_of_book - изменение типа экземпляра книги
-        - свойства атрибутов (@property) для их вывода
-        - сеттеры атрибутов (@атрибут.setter) для изменения значений атрибутов"""
+        - change_type_of_book - изменение типа экземпляра книги """
 
     _type_book = 'Бумажный'
 
