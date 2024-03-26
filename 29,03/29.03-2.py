@@ -13,7 +13,6 @@ class PassengerCar:
     def __init__(self, title: str):
         self.title = title
 
-
 class EngineMixIn:
     _engine_status = False
 
@@ -33,8 +32,8 @@ class TrailerMixIn:
         if cargo + cls._loaded > max_capacity:
             raise ValueError("Перегруз!")
         else:
-           cls._loaded += cargo
-           print(f"загружено {cls._loaded} кг, доступно {max_capacity - cargo}кг для загрузки")
+            cls._loaded += cargo
+            print(f"загружено {cls._loaded} кг, доступно {max_capacity - cargo}кг для загрузки")
 
 
 class ElectricCar(PassengerCar, EngineMixIn, TrailerMixIn):
