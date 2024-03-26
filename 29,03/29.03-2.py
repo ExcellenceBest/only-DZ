@@ -40,7 +40,7 @@ class TrailerMixIn:
 class ElectricCar(PassengerCar, EngineMixIn, TrailerMixIn):
     def __init__(self, title: str, battery_capacity: int):
         PassengerCar.__init__(self, title)
-        TrailerMixIn.__init__(self,)
+        TrailerMixIn.__init__(self)
         self.battery_capacity = battery_capacity
 
 
