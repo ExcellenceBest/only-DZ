@@ -23,11 +23,13 @@ class Human:
         - create_human_alternative - метод класса для создания объекта альтернативным способом
          - lived_through  - метод для вычисления возраста. """
 
+    #FIXME: конструтор создан не по условию задачи, date_of_born - целое число
     def __init__(self, name: list, date_of_born: date, telephone: str):
         self.__name = name
         self.__date_of_born = date_of_born
         self.__telephone = telephone
 
+    #FIXME: логика метода реализована неверно
     @classmethod
     def create_human_alternative(cls, name: list, date_of_born: date, telephone: str) -> object:
         """Метод позволяет создавать экземпляры класса альтернативным способом,
@@ -40,6 +42,7 @@ class Human:
     def __str__(self):
         """Метод для вывода информации всех значений атрибутов на печать"""
         self.__name = " ".join(str(i) for i in self.__name)
+        # FIXME: у объекта типа date есть методы которые конвертируют его в удобочитаемый вид
         return (f'ФИО: {self.__name}\n'
                 f'Дата рождения: {self.__date_of_born}\n'
                 f'Телефон: {self.__telephone}')
@@ -108,12 +111,15 @@ class Book:
         - type_of_book -  получение данных о типе экземпляра книги
         - change_type_of_book - изменение типа экземпляра книги """
 
+
     _type_book = 'Бумажный'
 
+    # FIXME: type_book не должен принимать по умолчанию значение из атрибута класса
     def __init__(self, title_book: str, genre: str, year_of_release: date, type_book: str = _type_book):
         self.__title_book = title_book
         self.__genre = genre
         self.__year_of_release = year_of_release
+        # FIXME: этот атрибут уже есть у класса
         self._type_book = type_book
 
     def __str__(self):
@@ -122,6 +128,7 @@ class Book:
                 f'Жанр: {self.__genre} \n'
                 f'Год выпуска: {self.__year_of_release}')
 
+    #FIXME: не совпадают передаваемые типы с типами в конструкторе
     @classmethod
     def create_book_alternative(cls, path: str) -> object:
         """Метод позволяет создавать экземпляры класса альтернативным способом,
