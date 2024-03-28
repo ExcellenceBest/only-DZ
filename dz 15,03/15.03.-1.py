@@ -52,8 +52,8 @@ print(ConverterTemp.converting_in_C_from_F(333))
 
 class Length_converter:
     """Класс создан для конвертации длины из системы СИ в английскую систему и наоборот.
-    Атрибуты класса - length (число для конвертации)
-    Методы класса:
+
+    Methods:
         - convert_cm_in_inch перевод из см в дюймы
         - convert_inch_in_cm перевод из дюймов в см
         - convert_metre_in_foot перевод из метров в футы
@@ -61,68 +61,49 @@ class Length_converter:
         - convert_metre_in_yard перевод из метров в ярды
         - convert_yard_in_metre перевод из ярдов в метры
         - convert_kilometre_in_mile перевод из километров в мили
-        - convert_mile_in_kilometre перевод из миль в километры
-        """
+        - convert_mile_in_kilometre перевод из миль в километры  """
 
-    # FIXME: в этом классе конструктор не нужен, хоть один метод в классе задействует эти атрибуты?
-    def __init__(self, length: float):
-
-        self.length = length
-
-    # FIXME: Метод должен вернуть значение, а не вывод, это обычный перевод одного значения в другое
     @staticmethod
     def convert_cm_in_inch(length: float):
         result = length / 2.54
-        return f'{length} cм -> {round(result, 2)} дюйма'
+        return result
 
-    # FIXME: Метод должен вернуть значение, а не вывод, это обычный перевод одного значения в другое
     @staticmethod
     def convert_inch_in_cm(length: float):
         result = length * 2.54
-        return f'{length} дюймов -> {round(result, 2)} см'
+        return result
 
-    # FIXME: Метод должен вернуть значение, а не вывод, это обычный перевод одного значения в другое
     @staticmethod
     def convert_metre_in_foot(length: float):
         result = length / 0.3048
-        return f'{length} м -> {round(result, 2)} Футов'
+        return result
 
-    # FIXME: Метод должен вернуть значение, а не вывод, это обычный перевод одного значения в другое
     @staticmethod
     def convert_foot_in_metre(length: float):
         result = length * 0.3048
-        return f'{length} Футов -> {round(result, 2)} М'
+        return result
 
-    # FIXME: Метод должен вернуть значение, а не вывод, это обычный перевод одного значения в другое
     @staticmethod
     def convert_metre_in_yard(length: float):
         result = length / 0.9144
-        return f'{length} м -> {round(result, 2)} Ярдов'
+        return result
 
-    # FIXME: Метод должен вернуть значение, а не вывод, это обычный перевод одного значения в другое
     @staticmethod
     def convert_yard_in_metre(length: float):
         result = length * 0.9144
-        return f'{length} Ярдов -> {round(result, 2)} М'
+        return result
 
-    # FIXME: Метод должен вернуть значение, а не вывод, это обычный перевод одного значения в другое
     @staticmethod
     def convert_kilometre_in_mile(length: float):
         result = length / 1.76
-        return f'{length} км -> {round(result, 2)} Миль'
+        return result
 
-    # FIXME: Метод должен вернуть значение, а не вывод, это обычный перевод одного значения в другое
     @staticmethod
     def convert_mile_in_kilometre(length: float):
         result = length * 1.76
-        return f'{length} Мили -> {round(result, 2)} км'
+        return result
 
-q = Length_converter(1)
-print(q.convert_cm_in_inch(10))
-print(q.convert_metre_in_foot(3))
-print(q.convert_kilometre_in_mile(5))
-print(q.convert_metre_in_yard(8))
-print(q.convert_inch_in_cm(10))
-print(q.convert_foot_in_metre(17))
-print(q.convert_yard_in_metre(6))
-print(q.convert_mile_in_kilometre(3))
+print(Length_converter.convert_cm_in_inch(10))
+print(Length_converter.convert_metre_in_foot(3))
+print(Length_converter.convert_kilometre_in_mile(5))
+print(Length_converter.convert_metre_in_yard(8))
