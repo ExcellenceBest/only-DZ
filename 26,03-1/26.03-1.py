@@ -22,18 +22,22 @@ class Shape(ABC):
 
     @abstractmethod
     def area(self):
+        # FIXME: абстрактные методы не требуют вызова исключения
         raise NotImplementedError
 
     @abstractmethod
     def perimeter(self):
+        # FIXME: абстрактные методы не требуют вызова исключения
         raise NotImplementedError
 
     @abstractmethod
     def save(self):
+        # FIXME: абстрактные методы не требуют вызова исключения
         raise NotImplementedError
 
     @abstractmethod
     def load(self, path):
+        # FIXME: абстрактные методы не требуют вызова исключения
         raise NotImplementedError
 
 
@@ -89,6 +93,7 @@ class Square(Shape):
         return f'{self.side * 4} {self.__unit_of_measurement}'
 
     def save(self):
+        # FIXME: откуда взялся square1???
         lst = [('Фигура', square1.__name), ('Единицы измерения', square1.__unit_of_measurement),
                ('Координаты левого верхнего угла', square1.__point_of_reference), ('Длина стороны', square1.__side),
                ('Площадь фигуры', square1.area()), ('Периметр', square1.perimeter())]
@@ -101,10 +106,12 @@ class Square(Shape):
         square.close()
         return file
 
+    # FIXME: это не может быть методом класса, по крайней мере в абстракции это не указано
     @classmethod
     def load(cls, path: str) -> object:
         #path = input('Введите название файла для загрузки квадрата: ')
         path = 'square'
+        # FIXME: как вы можете читать файл без расширения?
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
             figure[3] = int(figure[3])
@@ -175,6 +182,7 @@ class Rectangle(Shape):
         return f'{(self.__side_a + self.__side_b) * 2} {self.__unit_of_measurement}'
 
     def save(self):
+        # FIXME: откуда взялся rectangle1???
         lst = [('Фигура', rectangle1.__name), ('Единицы измерения', rectangle1.__unit_of_measurement),
                ('Координаты левого верхнего угла', rectangle1.__point_of_reference), ('Длина стороны A',
                 rectangle1.__side_a), ('Длина стороны B', rectangle1.__side_b), ('Площадь фигуры', rectangle1.area()),
@@ -188,9 +196,11 @@ class Rectangle(Shape):
         rect.close()
         return file
 
+    # FIXME: это не может быть методом класса, по крайней мере в абстракции это не указано
     @classmethod
     def load(cls, path: str) -> object:
         path = 'rectangle'
+        # FIXME: как вы можете читать файл без расширения?
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
             figure[3] = int(figure[3])
@@ -253,6 +263,7 @@ class Circle(Shape):
         return f'{round(2 * pi * self.__radius), 2} {self.__unit_of_measurement}'
 
     def save(self):
+        # FIXME: откуда взялся round1???
         lst = [('Фигура', round1.__name), ('Единицы измерения', round1.__unit_of_measurement),
                ('Координаты левого верхнего угла', round1.__point_of_reference), ('Радиус', round1.__radius),
                ('Площадь фигуры', round1.area()), ('Периметр', round1.perimeter())]
@@ -265,9 +276,11 @@ class Circle(Shape):
         round.close()
         return file
 
+    # FIXME: это не может быть методом класса, по крайней мере в абстракции это не указано
     @classmethod
     def load(cls, path: str) -> object:
         path = 'round'
+        # FIXME: как вы можете читать файл без расширения?
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
             figure[3] = float(figure[3])
@@ -335,9 +348,11 @@ class Ellipse(Shape):
         return f'{round(int(self.__r1) * int(self.__r2) * pi),2} Кв. {self.__unit_of_measurement}'
 
     def perimeter(self) -> float:
+        # FIXME: возвращается неправильный тип
         return f'{round(2 * pi * sqrt(((int(self.__r1)**2) + (int(self.__r2)**2)/2))), 2}{self.__unit_of_measurement}'
 
     def save(self):
+        # FIXME: откуда взялся ellipse1???
         lst = [('Фигура', ellipse1.__name), ('Единицы измерения', ellipse1.__unit_of_measurement),
                ('Координаты левого верхнего угла описанного прямоугольника', ellipse1.__point_of_reference),
                ('Первый радиус', ellipse1.__r1), ('Второй радиус', ellipse1.__r2),
@@ -351,9 +366,11 @@ class Ellipse(Shape):
         rect.close()
         return file
 
+    # FIXME: это не может быть методом класса, по крайней мере в абстракции это не указано
     @classmethod
     def load(cls, path: str) -> object:
         path = 'ellipse'
+        # FIXME: как вы можете читать файл без расширения?
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
         return cls(*figure)
@@ -363,6 +380,7 @@ ellipse1 = Ellipse('Эллипс', 'Дм', [23, 34], 24, 36)
 
 figures = [square1, rectangle1, round1, ellipse1]
 
+# FIXME: неверный тип аргемента, Shape не является перечисляемым
 def manipulation(figures: Shape):
     for i in figures:
         print(f'{i}\n'
@@ -380,6 +398,8 @@ def main():
         print(e)
     else:
         print('Программа завершена')
+
+    # TODO: нет функций, которые сохраняют и загружают фигуры из файла
 
 if __name__ == '__main__':
     main()
