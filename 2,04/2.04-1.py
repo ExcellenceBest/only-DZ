@@ -32,7 +32,7 @@ class Client:
         self._telephone = telephone
 
     def __str__(self):
-        return (f' {self._name}\n'
+        return (f'Клиент: {self._name}\n'
                 f'Телефон: {self._telephone}')
 
     @property
@@ -54,12 +54,17 @@ client2 = Client('Василий', '454575')
 
 class Order:
     @staticmethod
-    def print_order(car: Car):
-        print(f'Заказ оформлен!\n печать заказа: ')
+    def print_order(order):
+        print(f'Заказ оформлен!\n печать заказа: {order}')
+
+
 
 
 
 class RentCarService:
+    def __init__(self, car: Car):
+        self._cars: list[Car] = car
+
 
     @staticmethod
     def search_car(car: list):
@@ -67,14 +72,13 @@ class RentCarService:
             return False
         else:
             print('Найден свободный автомобиль!')
-            last = car.pop()
-            return last
+            return car[0]
 
     @staticmethod
     def reservation_car(cars: list, client: Client):
         if RentCarService.search_car:
             order = (client, cars)
-            print('Авто зарезервировано')
+            print('Авто с номером зарезервировано')
             return order
         else:
             return print('Нет свободных авто!')
