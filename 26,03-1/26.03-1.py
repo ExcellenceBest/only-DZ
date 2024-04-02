@@ -22,23 +22,19 @@ class Shape(ABC):
 
     @abstractmethod
     def area(self):
-        # FIXME: абстрактные методы не требуют вызова исключения
-        raise NotImplementedError
+        ...
 
     @abstractmethod
     def perimeter(self):
-        # FIXME: абстрактные методы не требуют вызова исключения
-        raise NotImplementedError
+        ...
 
     @abstractmethod
     def save(self):
-        # FIXME: абстрактные методы не требуют вызова исключения
-        raise NotImplementedError
+        ...
 
-    @abstractmethod
-    def load(self, path):
-        # FIXME: абстрактные методы не требуют вызова исключения
-        raise NotImplementedError
+    @classmethod
+    def load(cls, path):
+        ...
 
 
 class Square(Shape):
@@ -106,11 +102,9 @@ class Square(Shape):
         square.close()
         return file
 
-    # FIXME: это не может быть методом класса, по крайней мере в абстракции это не указано
     @classmethod
     def load(cls, path: str) -> object:
-        #path = input('Введите название файла для загрузки квадрата: ')
-        path = 'square'
+        path = 'new_square.txt'
         # FIXME: как вы можете читать файл без расширения?
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
@@ -196,11 +190,10 @@ class Rectangle(Shape):
         rect.close()
         return file
 
-    # FIXME: это не может быть методом класса, по крайней мере в абстракции это не указано
+
     @classmethod
     def load(cls, path: str) -> object:
-        path = 'rectangle'
-        # FIXME: как вы можете читать файл без расширения?
+        path = 'new_rectangle.txt'
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
             figure[3] = int(figure[3])
@@ -276,11 +269,9 @@ class Circle(Shape):
         round.close()
         return file
 
-    # FIXME: это не может быть методом класса, по крайней мере в абстракции это не указано
     @classmethod
     def load(cls, path: str) -> object:
-        path = 'round'
-        # FIXME: как вы можете читать файл без расширения?
+        path = 'new_round.txt'
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
             figure[3] = float(figure[3])
@@ -366,11 +357,9 @@ class Ellipse(Shape):
         rect.close()
         return file
 
-    # FIXME: это не может быть методом класса, по крайней мере в абстракции это не указано
     @classmethod
     def load(cls, path: str) -> object:
-        path = 'ellipse'
-        # FIXME: как вы можете читать файл без расширения?
+        path = 'new_ellipse.txt'
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
         return cls(*figure)
@@ -381,8 +370,8 @@ ellipse1 = Ellipse('Эллипс', 'Дм', [23, 34], 24, 36)
 figures = [square1, rectangle1, round1, ellipse1]
 
 # FIXME: неверный тип аргемента, Shape не является перечисляемым
-def manipulation(figures: Shape):
-    for i in figures:
+def manipulation(figure):
+    for i in figure:
         print(f'{i}\n'
               f'Площадь фигуры: {i.area()}\n'
               f'Периметр фигуры: {i.perimeter()}\n'
@@ -390,6 +379,23 @@ def manipulation(figures: Shape):
               f'Фигура загружена из файла.\n{i.load(str)}\n'
               f'Площадь равна: {i.load(str).area()}\n'
               f'Периметр равен: {i.load(str).perimeter()}\n')
+
+
+
+
+def save():
+    lst = [('Фигура', round1.__name), ('Единицы измерения', round1.__unit_of_measurement),
+           ('Координаты левого верхнего угла', round1.__point_of_reference), ('Радиус', round1.__radius),
+           ('Площадь фигуры', round1.area()), ('Периметр', round1.perimeter())]
+    doc1 = ''
+    file = 'round.txt'
+    for i in lst:
+        doc1 += str(i[0] + ':' + '\t' + str(i[1])) + '\n'
+    round = open(file, 'w', encoding='utf-8')
+    round.write(str(doc1))
+    round.close()
+    return file
+
 
 def main():
     try:
