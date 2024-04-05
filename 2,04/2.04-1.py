@@ -1,4 +1,7 @@
-from abc import ABC, abstractmethod
+from abc import ABC
+
+from typing import List
+
 """Задание 1.
 Рассмотрим принцип единственной ответственности на следующем
 примере. Допустим у нас есть класс RentCarService и в нем есть несколько
@@ -40,10 +43,6 @@ class Client:
         return self._name
 
     @property
-    def phone(self):
-        return self._telephone
-
-    @property
     def telephone(self):
         return self._telephone
 
@@ -57,14 +56,9 @@ class Order:
     def print_order(order):
         print(f'Заказ оформлен!\n печать заказа: {order}')
 
-
-
-
-
 class RentCarService:
     def __init__(self, car: Car):
-        self._cars: list[Car] = car
-
+        self._cars = car
 
     @staticmethod
     def search_car(car: list):
@@ -72,16 +66,17 @@ class RentCarService:
             return False
         else:
             print('Найден свободный автомобиль!')
-            return car[0]
+            return True
 
     @staticmethod
     def reservation_car(cars: list, client: Client):
         if RentCarService.search_car:
-            order = (client, cars)
-            print('Авто с номером зарезервировано')
-            return order
+            print('Нет свободных авто!, попробуйте через 3 мин')
+            RentCarService.search_car(car)
         else:
-            return print('Нет свободных авто!')
+            order = (client, cars)
+            print('Авто зарезервировано')
+            return order
 
 
 class CarPrintService:
@@ -120,9 +115,9 @@ def zakaz(client: Client, all_cars: list):
     Order.print_order(result)
     EmailNotification.send_mail('Заявка отправлена', client)
 
-zakaz(client1, cars)
+#zakaz(client1, cars)
 
-#zakaz(client2, cars2)
+zakaz(client2, cars2)
 
 
 """Необходимо создать класс CarPrintService и вынести туда функционал
