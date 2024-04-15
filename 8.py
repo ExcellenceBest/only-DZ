@@ -42,14 +42,11 @@
 # w = func(q)
 # print(w)
 
-arr = [-11, -10, 3, 4, 5, 6, 7, 8, 9]
+arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+arr2 = [8, 7, 6, 4, 3, 1, 2]
 result = []
-count = 0
-for i in arr:
-		if i < 0:
-			result[len(arr)-1-i] = i * i
-			count += 1
-		else:
-			result[i-count] = i * i
+for i in arr1:
+	if i not in arr2:
+		result.append(i)
 print(result)
 
