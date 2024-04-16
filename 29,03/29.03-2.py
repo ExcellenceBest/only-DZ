@@ -34,14 +34,12 @@ class TrailerMixIn:
             raise ValueError("Перегруз!")
         else:
             cls._loaded += cargo
-            print(f"загружено {cls._loaded} кг, доступно {max_capacity - cargo}кг для загрузки")
+            print(f"загружено {cls._loaded} кг, доступно {max_capacity - cls._loaded} кг для загрузки")
 
 
 class ElectricCar(PassengerCar, EngineMixIn, TrailerMixIn):
     def __init__(self, title: str, battery_capacity: int):
         PassengerCar.__init__(self, title)
-        # FIXME: у миксина нет конструктора, что тут наследовать?
-        TrailerMixIn.__init__(self)
         self.battery_capacity = battery_capacity
 
 
@@ -58,6 +56,8 @@ def test(car):
     car.start_engine()
     car.start_engine()
     car.loading_cargo(100)
+    car.loading_cargo(600)
+    car.loading_cargo(50)
 
 test(car1)
 test(car2)
