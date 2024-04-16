@@ -8,15 +8,8 @@ from abc import ABC, abstractmethod
  Вывод информации о всех жильцах определенной квартиры
  Вывод информации о всех квартирах в определенном доме"""
 
-# FIXME: А зачем нам этот класс?
-class Info(ABC):
-    @abstractmethod
-    def get_info(self):
-        ...
 
-
-# FIXME: класс Human точно будет наследником класса Info?
-class Human(Info):
+class Human:
     def __init__(self, name: str, age: int):
         self._name = name
         self._age = age
@@ -31,6 +24,7 @@ class Human(Info):
         return "% s: % s" % (self._name, self._age)
 
     # FIXME: зачем нам repr?
+    # Без repr на выводе тех инфа об обЪекте
     def __repr__(self):
         return "% s: % s" % (self._name, self._age)
 
@@ -47,8 +41,8 @@ family1 = [human1, human2, human3]
 family2 = [human4, human5]
 family3 = [human6]
 
-# FIXME: Flat точно должен быть наследником класса Info?
-class Flat(Info):
+
+class Flat:
     def __init__(self, number: int, family: list[Human]):
         self._number = number
         self._family: list[Human] = family
@@ -79,8 +73,7 @@ flat2 = Flat(2, family2)
 flat3 = Flat(1, family3)
 flats = [flat3, flat2, flat1]
 
-# FIXME: House точно должен быть наследником класса Info?
-class House(Info):
+class House:
     def __init__(self, number: int, flats:[Flat]):
         self._number = number
         self._flats: list[Flat] = flats
