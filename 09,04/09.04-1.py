@@ -26,8 +26,8 @@ class Human(Info):
     def __str__(self):
         return "% s: % s" % (self._name, self._age)
 
-    def __repr__(self):
-        return "% s: % s" % (self._name, self._age)
+    # def __repr__(self):
+    #     return "% s: % s" % (self._name, self._age)
 
 
 human1 = Human('Папа', 40)
@@ -54,8 +54,8 @@ class Flat(Info):
     def number(self):
         return self._number
 
-    def __repr__(self):
-        return "Кв. № % s: % s" % (self._number, self._family)
+    # def __repr__(self):
+    #     return "Кв. № % s: % s" % (self._number, self._family)
 
     def __str__(self):
         return "Квартира № % s: Живут: % s" % (self._number, self._family)
