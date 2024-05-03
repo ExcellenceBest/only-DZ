@@ -20,18 +20,22 @@ class Numbers:
     def summ(self):
         return sum(self._numbers)
 
-    def average(self):
-        return sum(self._numbers) / len(self._numbers)
+    def average(self) -> float:
+        a = sum(self._numbers) / len(self._numbers)
+        return a
 
-    def max(self):
+    def max(self) -> int:
         return max(self._numbers)
 
-    def min(self):
+    def min(self) -> int:
         return min(self._numbers)
 
 
 a = Numbers([1, 2, 3, 4, 5, 6, 7])
-
+print(a.summ())
+print(a.average())
+print(a.max())
+print(a.min())
 
 """Задание 2
 Создайте класс для числа. В классе должна быть реализована следующая функциональность:
