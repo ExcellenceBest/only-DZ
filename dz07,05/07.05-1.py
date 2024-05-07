@@ -61,4 +61,3 @@ fabric = PDFDocument()
 fabric.get_info()
 fabric2 = XMLApplication()
 fabric2.create_doc()
-
