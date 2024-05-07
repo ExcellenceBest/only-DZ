@@ -3,7 +3,7 @@
 кода, который зависит от интерфейса объекта. Например, приложению
 требуется объект с определенным интерфейсом. Это может объект у которого
 конкретная реализация интерфейса зависит от некоторого параметра. Вместо
-того, чтобы использовать сложную условную структуру if-elif-else для
+того чтобы использовать сложную условную структуру if-elif-else для
 выбора конкретной реализации, приложение делегирует это решение
 отдельному компоненту, который создает объект.
 В качестве примера реализуйте некоторое выдуманное приложение,
@@ -28,48 +28,37 @@ class Document(ABC):
 
 class PDFDocument(Document):
 
-    def __init__(self, info: str):
-        self.info = info
-
     def get_info(self):
-        return self.info
+        print('PDF')
 
 
 class XMLDocument(Document):
 
-    def __init__(self, info: str):
-        self.info = info
-
     def get_info(self):
-        return self.info
+        print('XML')
 
 
 class CreateDoc(ABC):
 
     @abstractmethod
-    def create_doc(self):
+    def create_doc(self) -> Document:
         ...
 
 class PDFApplication(CreateDoc):
 
-    def __init__(self, title):
-        self.title = title
-
-    def create_doc(self):
-        return f'Создан документ {self.title} в формате PDF'
+    def create_doc(self) -> Document:
+        return PDFDocument()
 
 
 class XMLApplication(CreateDoc):
 
-    def __init__(self, title):
-        self.title = title
+
+    def create_doc(self) -> Document:
+        return XMLDocument()
 
 
-    def create_doc(self):
-        return f'Создан документ {self.title} в формате XML'
+fabric = PDFDocument()
+fabric.get_info()
+fabric2 = XMLApplication()
+fabric2.create_doc()
 
-
-doc1 = XMLApplication('file')
-doc2 = PDFApplication('file2')
-print(doc1.create_doc())
-print(doc2.create_doc())
