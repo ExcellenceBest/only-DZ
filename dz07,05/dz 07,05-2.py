@@ -117,3 +117,4 @@ salon1.create_coup()
 # car3 = Mitsubishi()
 # car3.create_coup()
 # car2.get_body()
+
