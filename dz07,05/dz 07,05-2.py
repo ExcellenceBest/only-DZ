@@ -66,29 +66,54 @@ class CarFactory(ABC):
 
 class Hyundai(CarFactory):
 
-    def create_sedan(self):
-        print('Произведен авто, модель седан')
+    def create_sedan(self) -> Sedan:
+        print('Произведен Hyundai, модель седан')
         return Sedan()
 
 
-    def create_coup(self):
-        print('Произведен авто, модель купе')
+    def create_coup(self) -> Coup:
+        print('Произведен Hyundai, модель купе')
         return Coup()
 
 
 class Mitsubishi(CarFactory):
 
-    def create_sedan(self):
-        print('Произведен авто, модель седан')
+    def create_sedan(self) -> Sedan:
+        print('Произведен Mitsubishi, модель седан')
         return Sedan()
 
-    def create_coup(self):
-        print('Произведен авто, модель купе')
+    def create_coup(self) -> Coup:
+        print('Произведен Mitsubishi, модель купе')
         return Coup()
 
 
-car1 = Mitsubishi.create_sedan(Mitsubishi)
-car2 = Hyundai.create_coup(Hyundai)
-car3 = Mitsubishi()
-car3.create_coup()
-car2.get_body()
+class Salon:
+
+    def __init__(self, car_factory: CarFactory):
+        self.__car_factory = car_factory
+
+
+    def create_sedan(self):
+        sedan = self.__car_factory.create_sedan()
+        return sedan
+
+    def create_coup(self):
+        return self.__car_factory.create_coup()
+
+
+
+
+mitsubishi = Mitsubishi()
+salon = Salon(mitsubishi)
+salon.create_sedan()
+salon.create_coup()
+hyundai = Hyundai()
+salon1 = Salon(hyundai)
+salon1.create_sedan()
+salon1.create_coup()
+
+# car1 = Mitsubishi.create_sedan(Mitsubishi)
+# car2 = Hyundai.create_coup(Hyundai)
+# car3 = Mitsubishi()
+# car3.create_coup()
+# car2.get_body()
