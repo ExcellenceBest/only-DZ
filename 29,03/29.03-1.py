@@ -12,6 +12,7 @@ class Clock:
         - _validate_seconds - валидация секунд
         - tick - метод при вызове сдвигает время на одну секунду вперед. """
 
+    # FIXME: ваши проверки не соответствуют передаваемым параметрам. Почему количество часов минут и секунд имеют тип date?
     def __init__(self, hours: date, minutes: date, seconds: date):
         self.hours = self._validate_hours(hours)
         self.minutes = self._validate_minutes(minutes)
@@ -19,18 +20,21 @@ class Clock:
 
     @staticmethod
     def _validate_hours(hours):
+        # FIXME: проверка на тип?
         if hours > 23 or hours < 0:
             raise ValueError('Параметр часы вне диапазона от 0 до 23')
         return hours
 
     @staticmethod
     def _validate_minutes(minutes):
+        # FIXME: проверка на тип?
         if minutes > 59 or minutes < 0:
             raise ValueError('Параметр минуты вне диапазона от 0 до 59')
         return minutes
 
     @staticmethod
     def _validate_seconds(seconds):
+        # FIXME: проверка на тип?
         if seconds > 59 or seconds < 0:
             raise ValueError('Параметр секунды вне диапазона от 0 до 59')
         return seconds
@@ -42,6 +46,7 @@ class Clock:
                     self.hours = 0
                     self.minutes = 0
                     self.seconds = 0
+                    # ERROR: с какой целью здесь вызывается метод advance? Тем более питон показывает что вызов с ошибкой
                     CalendarClockWidget.advance(self)
                     print(f'{widget}\n')
                 else:
@@ -68,6 +73,8 @@ class Calendar:
             - _validate_month - валидация месяцев
             - _validate_day - валидация дней
             -  advance - метод при вызове сдвигает календарь на один день вперед."""
+
+    # FIXME: ваши проверки не соответствуют передаваемым параметрам. Почему количество часов минут и секунд имеют тип date?
     def __init__(self, year: date, month: date, day: date):
         self.year = self._validate_year(year)
         self.month = self._validate_month(month)
@@ -75,24 +82,30 @@ class Calendar:
 
     @staticmethod
     def _validate_year(year):
+        # FIXME: проверка на тип?
         if year > 2100 or year < 0:
             raise ValueError('Параметр год вне диапазона от 0 до 2100')
         return year
 
     @staticmethod
     def _validate_month(month):
+        # FIXME: проверка на тип?
         if month > 12 or month < 1:
             raise ValueError('Параметр месяц вне диапазона от 1 до 12')
         return month
 
 
     def _validate_day(self, day):
+        # FIXME: проверка на тип?
         if self.month == 2:
+            # TODO: проверка на високосный год?
             if day > 28 or day < 1:
                 raise ValueError('Параметр вне диапазона от 1 до 28')
         a = [1, 3, 5, 7, 8, 10, 12]
         if self.month in a:
+            # FIXME: чем эта проверка отличается от следующей? Может объединить и чем-то дополнить?
             if day > 31 or day < 1:
+                #FIXME: Вы точно хотели проверить на принадлежность диапазону?
                 raise ValueError('Параметр  день вне диапазона от 1 до 31')
         else:
             if day > 30 or day < 1:
@@ -131,12 +144,17 @@ class CalendarClockWidget(Clock, Calendar):
 
     def __init__(self, year, month, day, hours, minutes, seconds):
         super().__init__(hours, minutes, seconds)
+        # FIXME: почему второй конструктор отличается от первого в плане вызова super?
         super(Clock, self).__init__(year, month, day)
 
+    # FIXME: формат вывода даты и времени должен содержать ведущие нули
     def __str__(self):
         return (f'{self.year}-{self.month}-{self.day}\n'
                 f'{self.hours}:{self.minutes}:{self.seconds}')
 
+    # TODO: не реализован метод tick()
+
+# FIXME: конструктор явно ругается на создание объекта
 widget = CalendarClockWidget(2024, 12, 31, 23, 59, 58)
 
 def test(gadget):
