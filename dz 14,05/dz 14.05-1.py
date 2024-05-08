@@ -55,3 +55,4 @@ class CardReader(USBInterface):
 card = MemoryCard()
 q = CardReader(card)
 q.connect()
+
