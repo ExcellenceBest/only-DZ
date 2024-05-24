@@ -99,7 +99,7 @@ class Number:
 #         return result
 
 
-a = Number(100)
+a = Number()
 a.save_number(100, 'xxx.txt')
 print(a.read_number('file.txt'))
 #print(a.universal_convert(150, 8))
