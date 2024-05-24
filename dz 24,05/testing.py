@@ -49,9 +49,6 @@ class Numbers:
 
 class Number:
 
-    def __init__(self, x: int):
-        self.__x = x
-
     @staticmethod
     def read_number(path: str):
         with open(path, 'r', encoding='utf-8') as file:
@@ -102,7 +99,7 @@ class Number:
 #         return result
 
 
-a = Number
+a = Number(100)
 a.save_number(100, 'xxx.txt')
 print(a.read_number('file.txt'))
 #print(a.universal_convert(150, 8))
