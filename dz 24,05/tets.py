@@ -1,5 +1,5 @@
 import unittest
-from testing import *
+from testing import Numbers
 
 
 class TestNumbers(unittest.TestCase):
@@ -24,7 +24,8 @@ class TestNumbers(unittest.TestCase):
         self.assertEqual(self.numbers.min(), 1)
 
     def tearDown(self):
-        ...
+        print('test ok')
+
 
 if __name__ == '__main__':
     unittest.main()

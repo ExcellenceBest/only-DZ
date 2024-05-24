@@ -45,3 +45,21 @@ print(a.min())
 ■ Перевод числа в двоичную систему исчисления.
 Протестируйте все возможности созданного класса
 с помощью модульного тестирования(unittest)."""
+
+
+class Number:
+
+    def __init__(self, x):
+        self.x = x
+
+    def read_number(self):
+        ...
+
+    def save_number(self):
+        ...
+
+    def convert_number(self):
+        ...
+
+
+
