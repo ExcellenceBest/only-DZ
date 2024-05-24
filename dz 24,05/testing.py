@@ -92,14 +92,14 @@ class Number:
         return result
 
 # Универсальный конвертер, вторая переменная - система исчисления
-    @staticmethod
-    def universal_convert(x, y):
-        result = ''
-        while x > 0:
-            result += str(x % y)
-            x = x // y
-        result = result[::-1]
-        return result
+#     @staticmethod
+#     def universal_convert(x, y):
+#         result = ''
+#         while x > 0:
+#             result += str(x % y)
+#             x = x // y
+#         result = result[::-1]
+#         return result
 
 
 a = Number
