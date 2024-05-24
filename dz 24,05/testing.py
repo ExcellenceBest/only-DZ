@@ -31,11 +31,11 @@ class Numbers:
         return min(self._numbers)
 
 
-a = Numbers([1, 2, 3, 4, 5, 6, 7])
-print(a.summ())
-print(a.average())
-print(a.max())
-print(a.min())
+# a = Numbers([1, 2, 3, 4, 5, 6, 7])
+# print(a.summ())
+# print(a.average())
+# print(a.max())
+# print(a.min())
 
 """Задание 2
 Создайте класс для числа. В классе должна быть реализована следующая функциональность:
@@ -49,17 +49,63 @@ print(a.min())
 
 class Number:
 
-    def __init__(self, x):
-        self.x = x
+    def __init__(self, x: int):
+        self.__x = x
 
-    def read_number(self):
-        ...
+    @staticmethod
+    def read_number(path: str):
+        with open(path, 'r', encoding='utf-8') as file:
+            number = int(file.read())
+        return number
 
-    def save_number(self):
-        ...
+    @staticmethod
+    def save_number(number, path: str):
+        file1 = open(path, 'w', encoding='utf-8')
+        file1.write(str(number))
+        file1.close()
 
-    def convert_number(self):
-        ...
+    @staticmethod
+    def convert_8(x):
+        result = ''
+        while x > 0:
+            result += str(x % 8)
+            x = x // 8
+        result = int(result[::-1])
+        return result
+
+    @staticmethod
+    def convert_16(x):
+        result = ''
+        while x > 0:
+            result += str(x % 16)
+            x = x // 16
+        result = int(result[::-1])
+        return result
+
+    @staticmethod
+    def convert_2(x):
+        result = ''
+        while x > 0:
+            result += str(x % 2)
+            x = x // 2
+        result = int(result[::-1])
+        return result
+
+# Универсальный конвертер, вторая переменная - система исчисления
+    @staticmethod
+    def universal_convert(x, y):
+        result = ''
+        while x > 0:
+            result += str(x % y)
+            x = x // y
+        result = result[::-1]
+        return result
 
 
-
+a = Number
+a.save_number(100, 'xxx.txt')
+print(a.read_number('file.txt'))
+#print(a.universal_convert(150, 8))
+# print(a.convert_8(100))
+# print(a.convert_2(100))
+# print(a.convert_16(100))

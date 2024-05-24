@@ -1,6 +1,6 @@
 import unittest
 from testing import Numbers
-
+from testing import Number
 
 class TestNumbers(unittest.TestCase):
 
@@ -22,6 +22,37 @@ class TestNumbers(unittest.TestCase):
 
     def test_min(self):
         self.assertEqual(self.numbers.min(), 1)
+
+    def tearDown(self):
+        print('test ok')
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+class TestNumber(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.a = str()
+
+    def setUp(self):
+        self.number = Number
+
+    def test_read_number(self):
+        self.assertEqual(self.number.read_number('file.txt'), 150)
+
+    def test_save_number(self):
+        self.assertEqual(self.number.save_number(100, 'xxx.txt'), None)
+
+    def test_convert_8(self):
+        self.assertEqual(self.number.convert_8(100), 144)
+
+    def test_convert_16(self):
+        self.assertEqual(self.number.convert_16(100), 64)
+
+    def test_convert_2(self):
+        self.assertEqual(self.number.convert_2(100), 1100100)
 
     def tearDown(self):
         print('test ok')
