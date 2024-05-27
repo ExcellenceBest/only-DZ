@@ -43,7 +43,7 @@ class TestNumber(unittest.TestCase):
         self.assertEqual(self.number.read_number('file.txt'), 150)
 
     def test_save_number(self):
-        self.assertEqual(self.number.save_number(100, 'xxx.txt'), None)
+        self.assertEqual(100, self.number.read_number('xxx.txt'))
 
     def test_convert_8(self):
         self.assertEqual(self.number.convert_8(100), 144)
