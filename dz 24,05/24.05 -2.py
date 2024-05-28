@@ -15,16 +15,16 @@ class Fraction:
         self.a = a
         self.b = b
 
-    @classmethod
-    def fract(cls, a, b):
-        return cls(fractions.Fraction(a), fractions.Fraction(b))
+    @staticmethod
+    def fract(a, b):
+        return fractions.Fraction(a, b)
 
     def __str__(self):
         return f'{fractions.Fraction(self.a, self.b)}'
 
     @staticmethod
-    def addition():
-        return
+    def addition(a, b):
+        return a.fract() - b.fract()
 
     @staticmethod
     def subtraction(a, b):
@@ -38,28 +38,17 @@ class Fraction:
     def division(a, b):
         return a.fract() / b.fract()
 
-    def __add__(self, other):
-        ...
 
 qwe = Fraction.fract(2, 9)
 qwe1 = Fraction.fract(2, 9)
-print(type(qwe))
-print(type(qwe1))
-a = Fraction(1, 1)
-a = qwe + qwe1
-print(a)
-# fr = Fraction(6, 10)
-# fr1 = Fraction(4, 10)
-# fr2 = Fraction(5, 10)
-# q = Fraction(1, 1)
-# print(fr)
-# print(fr1)
-#
-# print(q.addition(fr, fr1))
-# print(q.subtraction(fr, fr1))
-# print(q.multiplication(fr, fr1))
-# print(q.division(fr, fr1))
-# z = fr + fr1 + fr2
+print(qwe)
+print(qwe1)
+x = qwe + qwe1
+x2 = qwe - qwe1
+x3 = qwe * qwe1
+x4 = qwe / qwe1
+print(x, x2, x3, x4)
+
 
 """ Задание 2
 Создайте класс Калькулятор. В классе должна быть
