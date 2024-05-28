@@ -1,6 +1,7 @@
 import unittest
 from testing import Numbers
 from testing import Number
+from Testing2 import Fraction
 
 class TestNumbers(unittest.TestCase):
 
@@ -60,3 +61,7 @@ class TestNumber(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class TestFraction(unittest.TestCase):
+    ...
+
