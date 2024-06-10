@@ -1,7 +1,7 @@
 import unittest
 from testing import Numbers
 from testing import Number
-from Testing2 import Fraction
+from Testing2 import Calculator
 
 class TestNumbers(unittest.TestCase):
 
@@ -63,5 +63,47 @@ if __name__ == '__main__':
     unittest.main()
 
 class TestFraction(unittest.TestCase):
+
     ...
 
+
+class TestCalculator(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.a = int()
+        cls.b = int()
+
+    def setUp(self):
+        self.calculator = Calculator
+
+    def test_addition(self):
+        self.assertEqual(self.calculator.addition(20, 40), 60)
+
+    def test_subtraction(self):
+        self.assertEqual(self.calculator.subtraction(88, 45), 43)
+
+    def test_multiplication(self):
+        self.assertEqual(self.calculator.multiplication(25, 25), 625)
+
+    def test_division(self):
+        self.assertEqual(self.calculator.division(96, 16), 6)
+
+    def test_max(self):
+        self.assertEqual(self.calculator.max(24, 14), 24)
+
+    def test_min(self):
+        self.assertEqual(self.calculator.min(2, 14), 2)
+
+    def test_percent(self):
+        self.assertEqual(self.calculator.percent(200, 25), 50)
+
+    def test_degree(self):
+        self.assertEqual(self.calculator.degree(2, 13), 8192)
+
+    def tearDown(self):
+        print('test ok')
+
+
+if __name__ == '__main__':
+    unittest.main()
