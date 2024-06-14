@@ -9,9 +9,10 @@
 с помощью модульного тестирования (unittest)."""
 import fractions
 
+
 class Fraction:
     
-    def __init__(self, a: fractions, b: fractions) -> object:
+    def __init__(self, a: fractions, b: fractions):
         self.a = a
         self.b = b
 
@@ -64,12 +65,12 @@ class Fraction:
 Протестируйте все возможности созданного класса с
 помощью модульного тестирования (unittest)"""
 
+
 class Calculator:
 
-    def __init__(self, a=None, b=None) -> object:
+    def __init__(self, a=None, b=None):
         self.a = None
         self.b = None
-
 
     @staticmethod
     def addition(a, b):
@@ -102,6 +103,7 @@ class Calculator:
     @staticmethod
     def degree(a, b):
         return a ** b
+
 
 a = Calculator()
 print(a.degree(2, 10))
