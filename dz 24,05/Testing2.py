@@ -9,9 +9,10 @@
 с помощью модульного тестирования (unittest)."""
 import fractions
 
+
 class Fraction:
     
-    def __init__(self, a: fractions, b: fractions) -> object:
+    def __init__(self, a, b):
         self.a = a
         self.b = b
 
@@ -39,9 +40,12 @@ class Fraction:
         return a.fract() / b.fract()
 
 
+qq = Fraction(1, 2)
+qqq = Fraction(1, 8)
+print(qq)
 qwe = Fraction.fract(2, 9)
 qwe1 = Fraction.fract(2, 9)
-print(qwe)
+print(type(qwe))
 print(qwe1)
 x = qwe + qwe1
 x2 = qwe - qwe1
