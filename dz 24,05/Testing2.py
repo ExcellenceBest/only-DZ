@@ -9,10 +9,9 @@
 с помощью модульного тестирования (unittest)."""
 import fractions
 
-
 class Fraction:
     
-    def __init__(self, a, b):
+    def __init__(self, a: fractions, b: fractions) -> object:
         self.a = a
         self.b = b
 
@@ -25,7 +24,7 @@ class Fraction:
 
     @staticmethod
     def addition(a, b):
-        return a.fract() - b.fract()
+        return a.fract() + b.fract()
 
     @staticmethod
     def subtraction(a, b):
@@ -40,18 +39,15 @@ class Fraction:
         return a.fract() / b.fract()
 
 
-qq = Fraction(1, 2)
-qqq = Fraction(1, 8)
-print(qq)
-qwe = Fraction.fract(2, 9)
-qwe1 = Fraction.fract(2, 9)
-print(type(qwe))
-print(qwe1)
-x = qwe + qwe1
-x2 = qwe - qwe1
-x3 = qwe * qwe1
-x4 = qwe / qwe1
-print(x, x2, x3, x4)
+# qwe = Fraction.fract(2, 9)
+# qwe1 = Fraction.fract(2, 9)
+# print(qwe)
+# print(qwe1)
+# x = qwe + qwe1
+# x2 = qwe - qwe1
+# x3 = qwe * qwe1
+# x4 = qwe / qwe1
+# print(x, x2, x3, x4)
 
 
 """ Задание 2
@@ -70,5 +66,45 @@ print(x, x2, x3, x4)
 
 class Calculator:
 
-    ...
+    def __init__(self, a=None, b=None) -> object:
+        self.a = None
+        self.b = None
 
+
+    @staticmethod
+    def addition(a, b):
+        return a + b
+
+    @staticmethod
+    def subtraction(a, b):
+        return a - b
+
+    @staticmethod
+    def multiplication(a, b):
+        return a * b
+
+    @staticmethod
+    def division(a, b):
+        return a / b
+
+    @staticmethod
+    def max(a, b):
+        return max(a, b)
+
+    @staticmethod
+    def min(a, b):
+        return min(a, b)
+
+    @staticmethod
+    def percent(a, b):
+        return (a / 100) * b
+
+    @staticmethod
+    def degree(a, b):
+        return a ** b
+
+a = Calculator()
+print(a.degree(2, 10))
+q = a.percent(200, 24)
+print(q)
+print(a.max(23, 14))
