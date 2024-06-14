@@ -1,3 +1,4 @@
+import fractions
 import unittest
 from testing import Numbers
 from testing import Number
@@ -31,6 +32,7 @@ class TestNumbers(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
+
 class TestNumber(unittest.TestCase):
 
     @classmethod
@@ -62,9 +64,19 @@ class TestNumber(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
+
 class TestFraction(unittest.TestCase):
 
-    ...
+    @classmethod
+    def setUpClass(cls):
+        cls.a = fractions.Fraction
+        cls.b = fractions.Fraction
+
+    def setUp(self):
+        self.fraction = fractions.Fraction
+
+    def test_addition(self):
+        ...
 
 
 class TestCalculator(unittest.TestCase):
