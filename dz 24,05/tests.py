@@ -1,9 +1,9 @@
-import fractions
+from fractions import Fraction
 import unittest
 from testing import Numbers
 from testing import Number
 from Testing2 import Calculator
-from  Testing2 import NewFraction
+from Testing2 import NewFraction
 
 class TestNumbers(unittest.TestCase):
 
