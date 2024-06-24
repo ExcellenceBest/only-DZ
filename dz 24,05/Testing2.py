@@ -7,43 +7,41 @@
 ■ Деление дробей.
 Протестируйте все возможности созданного класса
 с помощью модульного тестирования (unittest)."""
-import fractions
+from fractions import Fraction
 
 
-class Fraction:
+class NewFraction:
     
-    def __init__(self, a: fractions, b: fractions):
+    def __init__(self, a: int, b: int):
         self.a = a
         self.b = b
 
     @staticmethod
-    def fract(a, b):
-        return fractions.Fraction(a, b)
+    def fract(a: int, b: int) -> Fraction:
+        return Fraction(a, b)
 
     def __str__(self):
-        return f'{fractions.Fraction(self.a, self.b)}'
+        return f'{Fraction(self.a, self.b)}'
 
     @staticmethod
-    def addition(a, b):
-        return a.fract() + b.fract()
+    def addition(a: Fraction, b: Fraction):
+        return a + b
 
     @staticmethod
     def subtraction(a, b):
-        return a.fract() - b.fract()
+        return a - b
 
     @staticmethod
     def multiplication(a, b):
-        return a.fract() * b.fract()
+        return a * b
 
     @staticmethod
     def division(a, b):
-        return a.fract() / b.fract()
+        return a / b
 
 
-# qwe = Fraction.fract(2, 9)
-# qwe1 = Fraction.fract(2, 9)
-# print(qwe)
-# print(qwe1)
+# qwe = NewFraction.fract(5, 10)
+# qwe1 = NewFraction.fract(3, 10)
 # x = qwe + qwe1
 # x2 = qwe - qwe1
 # x3 = qwe * qwe1
@@ -105,8 +103,8 @@ class Calculator:
         return a ** b
 
 
-a = Calculator()
-print(a.degree(2, 10))
-q = a.percent(200, 24)
-print(q)
-print(a.max(23, 14))
+# aa = Calculator()
+# print(aa.degree(2, 10))
+# q = aa.percent(200, 24)
+# print(q)
+# print(aa.max(23, 14))

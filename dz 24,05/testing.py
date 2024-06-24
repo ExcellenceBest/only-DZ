@@ -99,10 +99,10 @@ class Number:
 #         return result
 
 
-a = Number()
-a.save_number(100, 'xxx.txt')
-print(a.read_number('file.txt'))
-#print(a.universal_convert(150, 8))
-print(a.convert_8(100))
-print(a.convert_2(100))
-print(a.convert_16(100))
+# a = Number()
+# a.save_number(100, 'xxx.txt')
+# print(a.read_number('file.txt'))
+# #print(a.universal_convert(150, 8))
+# print(a.convert_8(100))
+# print(a.convert_2(100))
+# print(a.convert_16(100))

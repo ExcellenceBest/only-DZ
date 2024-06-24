@@ -3,6 +3,7 @@ import unittest
 from testing import Numbers
 from testing import Number
 from Testing2 import Calculator
+from  Testing2 import NewFraction
 
 class TestNumbers(unittest.TestCase):
 
@@ -65,18 +66,35 @@ if __name__ == '__main__':
     unittest.main()
 
 
-class TestFraction(unittest.TestCase):
+class TestNewFraction(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.a = fractions.Fraction
-        cls.b = fractions.Fraction
+        cls.a = int()
+        cls.b = int()
 
     def setUp(self):
-        self.fraction = fractions.Fraction
+        self.fraction = NewFraction
+
+    def test_fract(self):
+        self.assertEqual(self.fraction.fract(5, 10), 0.5)
+
 
     def test_addition(self):
-        ...
+        self.assertEqual(self.fraction.addition(self.fraction.fract(2, 10), self.fraction.fract(5, 10)),
+                         self.fraction.fract(7, 10))
+
+    def test_subtraction(self):
+        self.assertEqual(self.fraction.subtraction(self.fraction.fract(9, 10), self.fraction.fract(3, 10)),
+                         self.fraction.fract(6, 10))
+
+    def test_multiplication(self):
+        self.assertEqual(self.fraction.multiplication(self.fraction.fract(2, 10), self.fraction.fract(5, 10)),
+                         self.fraction.fract(10, 100))
+
+    def test_division(self):
+        self.assertEqual(self.fraction.division(self.fraction.fract(8, 10), self.fraction.fract(4, 10)),
+                         self.fraction.fract(2, 1))
 
 
 class TestCalculator(unittest.TestCase):
