@@ -65,7 +65,6 @@ class Train_park:
             print(i)
 
 
-
 station = Train_park
 
 first_train = Train(1, date(2024, 12, 29), time(12, 23, 45), 'Yaroslavl', "Moscow")
