@@ -26,15 +26,15 @@ class EngineMixIn:
 
 class TrailerMixIn:
     _loaded = 0
+    _max_capacity: int = 750
 
-    # FIXME: т.е. я при каждом добавлении груза могу еще и максимальный груз увеличивать? Круто, мне тогда никакие проверки на перегруз не нужны
     @classmethod
-    def loading_cargo(cls, cargo: int, max_capacity: int = 750):
-        if cargo + cls._loaded > max_capacity:
+    def loading_cargo(cls, cargo: int):
+        if cargo + cls._loaded > cls._max_capacity:
             raise ValueError("Перегруз!")
         else:
             cls._loaded += cargo
-            print(f"загружено {cls._loaded} кг, доступно {max_capacity - cls._loaded} кг для загрузки")
+            print(f"загружено {cls._loaded} кг, доступно {cls._max_capacity - cls._loaded} кг для загрузки")
 
 
 class ElectricCar(PassengerCar, EngineMixIn, TrailerMixIn):
@@ -43,10 +43,9 @@ class ElectricCar(PassengerCar, EngineMixIn, TrailerMixIn):
         self.battery_capacity = battery_capacity
 
 
-# FIXME: RacingCar точно должен быть наследником PassengerCar?
-class RacingCar(PassengerCar, EngineMixIn, TrailerMixIn):
+class RacingCar(EngineMixIn, TrailerMixIn):
     def __init__(self, title: str, n2o_capacity: int):
-        PassengerCar.__init__(self, title)
+        self.title = title
         self.n2o_capacity = n2o_capacity
 
 car1 = ElectricCar('Tesla', 50000)
@@ -57,7 +56,7 @@ def test(car):
     car.start_engine()
     car.loading_cargo(100)
     car.loading_cargo(600)
-    car.loading_cargo(50)
+    car.loading_cargo(40)
 
 test(car1)
 test(car2)
