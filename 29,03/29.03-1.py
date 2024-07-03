@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, time
 
 class Clock:
     """Класс имитирует часы.
@@ -12,31 +12,33 @@ class Clock:
         - _validate_seconds - валидация секунд
         - tick - метод при вызове сдвигает время на одну секунду вперед. """
 
-    # FIXME: ваши проверки не соответствуют передаваемым параметрам. Почему количество часов минут и секунд имеют тип date?
-    def __init__(self, hours: date, minutes: date, seconds: date):
+    def __init__(self, hours: time, minutes: time, seconds: time):
         self.hours = self._validate_hours(hours)
         self.minutes = self._validate_minutes(minutes)
         self.seconds = self._validate_seconds(seconds)
 
     @staticmethod
     def _validate_hours(hours):
-        # FIXME: проверка на тип?
+        if isinstance(hours, time):
+            raise ValueError('Параметр hours не соответствует типу time')
         if hours > 23 or hours < 0:
-            raise ValueError('Параметр часы вне диапазона от 0 до 23')
+            raise ValueError('Параметр hours вне диапазона от 0 до 23')
         return hours
 
     @staticmethod
     def _validate_minutes(minutes):
-        # FIXME: проверка на тип?
+        if isinstance(minutes, time):
+            raise ValueError('Параметр minutes не соответствует типу time')
         if minutes > 59 or minutes < 0:
-            raise ValueError('Параметр минуты вне диапазона от 0 до 59')
+            raise ValueError('Параметр minutes вне диапазона от 0 до 59')
         return minutes
 
     @staticmethod
     def _validate_seconds(seconds):
-        # FIXME: проверка на тип?
+        if isinstance(seconds, time):
+            raise ValueError('Параметр seconds не соответствует типу time')
         if seconds > 59 or seconds < 0:
-            raise ValueError('Параметр секунды вне диапазона от 0 до 59')
+            raise ValueError('Параметр seconds вне диапазона от 0 до 59')
         return seconds
 
     def tick(self):
@@ -46,8 +48,7 @@ class Clock:
                     self.hours = 0
                     self.minutes = 0
                     self.seconds = 0
-                    # ERROR: с какой целью здесь вызывается метод advance? Тем более питон показывает что вызов с ошибкой
-                    CalendarClockWidget.advance(self)
+                    Calendar.advance(self)
                     print(f'{widget}\n')
                 else:
                     self.hours += 1
@@ -74,7 +75,6 @@ class Calendar:
             - _validate_day - валидация дней
             -  advance - метод при вызове сдвигает календарь на один день вперед."""
 
-    # FIXME: ваши проверки не соответствуют передаваемым параметрам. Почему количество часов минут и секунд имеют тип date?
     def __init__(self, year: date, month: date, day: date):
         self.year = self._validate_year(year)
         self.month = self._validate_month(month)
@@ -82,21 +82,24 @@ class Calendar:
 
     @staticmethod
     def _validate_year(year):
-        # FIXME: проверка на тип?
+        if isinstance(year, date):
+            raise ValueError('Параметр year не соответствует типу date')
         if year > 2100 or year < 0:
             raise ValueError('Параметр год вне диапазона от 0 до 2100')
         return year
 
     @staticmethod
     def _validate_month(month):
-        # FIXME: проверка на тип?
+        if isinstance(month, date):
+            raise ValueError('Параметр month не соответствует типу date')
         if month > 12 or month < 1:
             raise ValueError('Параметр месяц вне диапазона от 1 до 12')
         return month
 
 
     def _validate_day(self, day):
-        # FIXME: проверка на тип?
+        if isinstance(day, date):
+            raise ValueError('Параметр day не соответствует типу date')
         if self.month == 2:
             # TODO: проверка на високосный год?
             if day > 28 or day < 1:
