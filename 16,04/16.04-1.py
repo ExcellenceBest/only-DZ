@@ -48,35 +48,35 @@ class Flat:
             return self.get_square() == other
         if isinstance(other, float):
             return self.get_square() == other
-        raise TypeError(f"'==' не поддерживается между типами Circle and {other.__class__.__name__}")
+        raise TypeError(f"'==' не поддерживается между типами Flat and {other.__class__.__name__}")
 
     def __ne__(self, other) -> bool:
         if isinstance(other, Flat):
             return self.get_square() != other
         if isinstance(other, float):
             return self.get_square() != other
-        raise TypeError(f"'!=' не поддерживается между типами Circle and {other.__class__.__name__}")
+        raise TypeError(f"'!=' не поддерживается между типами Flat and {other.__class__.__name__}")
 
     def __lt__(self, other) -> bool:
         if isinstance(other, Flat):
             return self.get_square() < other
         if isinstance(other, float):
             return self.get_square() < other
-        raise TypeError(f"'<' не поддерживается между типами Circle and {other.__class__.__name__}")
+        raise TypeError(f"'<' не поддерживается между типами Flat and {other.__class__.__name__}")
 
     def __le__(self, other) -> bool:
         if isinstance(other, Flat):
             return self.get_square() <= other
         if isinstance(other, float):
             return self.get_square() <= other
-        raise TypeError(f"'<=' не поддерживается между типами Circle and {other.__class__.__name__}")
+        raise TypeError(f"'<=' не поддерживается между типами Flat and {other.__class__.__name__}")
 
     def __gt__(self, other) -> bool:
         if isinstance(other, Flat):
             return self.get_square() >= other
         if isinstance(other, float):
             return self.get_square() >= other
-        raise TypeError(f"'>=' не поддерживается между типами Circle and {other.__class__.__name__}")
+        raise TypeError(f"'>=' не поддерживается между типами Flat and {other.__class__.__name__}")
 
 
     def __ge__(self, other) -> bool:
@@ -84,7 +84,7 @@ class Flat:
             return self.get_square() > other
         if isinstance(other, float):
             return self.get_square() > other
-        raise TypeError(f"'>' не поддерживается между типами Circle and {other.__class__.__name__}")
+        raise TypeError(f"'>' не поддерживается между типами Flat and {other.__class__.__name__}")
 
 flat = Flat(1, 48.0)
 flat2 = Flat(2, 20.5)
