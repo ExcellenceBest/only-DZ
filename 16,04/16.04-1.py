@@ -9,7 +9,6 @@
 последовательностями. Каждый новый дом по умолчанию имеет 10 этажей.
 Продемонстрируйте работу с классом на примере."""
 
-
 class Flat:
 
     def __init__(self, number: int, square: float):
@@ -41,7 +40,6 @@ class Flat:
 
     def get_number(self):
         return self._number
-
 
     def __eq__(self, other) -> bool:
         if isinstance(other, Flat):
@@ -95,7 +93,6 @@ flat6 = Flat(6, 44.6)
 flat7 = Flat(7, 43.0)
 flat8 = Flat(8, 80.4)
 flats = [flat, flat8, flat4, flat7, flat6, flat5, flat3, flat2]
-
 
 class ApartmentHouse:
 
