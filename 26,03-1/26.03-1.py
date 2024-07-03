@@ -76,23 +76,24 @@ class Square(Shape):
 
     @property
     def side(self):
-        return self.__side
+        return int(self.__side)
 
     @side.setter
     def side(self, side):
         self.__side = side
 
+
     def area(self):
-        return f'{self.side ** 2} Кв.{self.__unit_of_measurement}'
+        return f'{self.side ** 2} Кв.{Square.unit_of_measurement}'
 
     def perimeter(self):
         return f'{self.side * 4} {self.__unit_of_measurement}'
 
     def save(self):
         # FIXME: откуда взялся square1???
-        lst = [('Фигура', square1.__name), ('Единицы измерения', square1.__unit_of_measurement),
-               ('Координаты левого верхнего угла', square1.__point_of_reference), ('Длина стороны', square1.__side),
-               ('Площадь фигуры', square1.area()), ('Периметр', square1.perimeter())]
+        lst = [('Фигура', Square.name), ('Единицы измерения', Square.unit_of_measurement),
+               ('Координаты левого верхнего угла', Square.point_of_reference), ('Длина стороны', Square.side),
+               ('Площадь фигуры', Square.area(self)), ('Периметр', Square.perimeter(self))]
         doc1 = ''
         file = 'square.txt'
         for i in lst:
@@ -105,7 +106,6 @@ class Square(Shape):
     @classmethod
     def load(cls, path: str) -> object:
         path = 'new_square.txt'
-        # FIXME: как вы можете читать файл без расширения?
         with open(path, 'r', encoding='utf-8') as file:
             figure = list(map(lambda x: x.rstrip('\n'), file.readlines()))
             figure[3] = int(figure[3])
@@ -176,11 +176,10 @@ class Rectangle(Shape):
         return f'{(self.__side_a + self.__side_b) * 2} {self.__unit_of_measurement}'
 
     def save(self):
-        # FIXME: откуда взялся rectangle1???
-        lst = [('Фигура', rectangle1.__name), ('Единицы измерения', rectangle1.__unit_of_measurement),
-               ('Координаты левого верхнего угла', rectangle1.__point_of_reference), ('Длина стороны A',
-                rectangle1.__side_a), ('Длина стороны B', rectangle1.__side_b), ('Площадь фигуры', rectangle1.area()),
-               ('Периметр', rectangle1.perimeter())]
+        lst = [('Фигура', Rectangle.name), ('Единицы измерения', Rectangle.unit_of_measurement),
+               ('Координаты левого верхнего угла', Rectangle.point_of_reference), ('Длина стороны A',
+               Rectangle.side_a), ('Длина стороны B', Rectangle.side_b), ('Площадь фигуры', Rectangle.area(self)),
+               ('Периметр', Rectangle.perimeter(self))]
         doc1 = ''
         file = 'rect.txt'
         for i in lst:
@@ -256,10 +255,9 @@ class Circle(Shape):
         return f'{round(2 * pi * self.__radius), 2} {self.__unit_of_measurement}'
 
     def save(self):
-        # FIXME: откуда взялся round1???
-        lst = [('Фигура', round1.__name), ('Единицы измерения', round1.__unit_of_measurement),
-               ('Координаты левого верхнего угла', round1.__point_of_reference), ('Радиус', round1.__radius),
-               ('Площадь фигуры', round1.area()), ('Периметр', round1.perimeter())]
+        lst = [('Фигура', Circle.name), ('Единицы измерения', Circle.unit_of_measurement),
+               ('Координаты левого верхнего угла', Circle.point_of_reference), ('Радиус', Circle.radius),
+               ('Площадь фигуры', Circle.area(self)), ('Периметр', Circle.perimeter(self))]
         doc1 = ''
         file = 'round.txt'
         for i in lst:
@@ -338,16 +336,14 @@ class Ellipse(Shape):
     def area(self):
         return f'{round(int(self.__r1) * int(self.__r2) * pi),2} Кв. {self.__unit_of_measurement}'
 
-    def perimeter(self) -> float:
-        # FIXME: возвращается неправильный тип
-        return f'{round(2 * pi * sqrt(((int(self.__r1)**2) + (int(self.__r2)**2)/2))), 2}{self.__unit_of_measurement}'
+    def perimeter(self) -> tuple:
+        return f'{float(round(2 * pi * sqrt(((int(self.__r1)**2) + (int(self.__r2)**2)/2)))), 2}{self.__unit_of_measurement}'
 
     def save(self):
-        # FIXME: откуда взялся ellipse1???
-        lst = [('Фигура', ellipse1.__name), ('Единицы измерения', ellipse1.__unit_of_measurement),
-               ('Координаты левого верхнего угла описанного прямоугольника', ellipse1.__point_of_reference),
-               ('Первый радиус', ellipse1.__r1), ('Второй радиус', ellipse1.__r2),
-            ('Площадь фигуры', ellipse1.area()), ('Периметр', ellipse1.perimeter())]
+        lst = [('Фигура', Ellipse.name), ('Единицы измерения', Ellipse.unit_of_measurement),
+               ('Координаты левого верхнего угла описанного прямоугольника', Ellipse.point_of_reference),
+               ('Первый радиус', Ellipse.r1), ('Второй радиус', Ellipse.r2),
+            ('Площадь фигуры', Ellipse.area(self)), ('Периметр', Ellipse.perimeter(self))]
         doc1 = ''
         file = 'ellipse.txt'
         for i in lst:
@@ -383,7 +379,7 @@ def manipulation(figure):
 
 
 
-def save():
+def save(figure):
     lst = [('Фигура', round1.__name), ('Единицы измерения', round1.__unit_of_measurement),
            ('Координаты левого верхнего угла', round1.__point_of_reference), ('Радиус', round1.__radius),
            ('Площадь фигуры', round1.area()), ('Периметр', round1.perimeter())]
@@ -399,7 +395,9 @@ def save():
 
 def main():
     try:
-        manipulation(figures)
+        #manipulation(figures)
+        save()
+
     except ValueError as e:
         print(e)
     else:
