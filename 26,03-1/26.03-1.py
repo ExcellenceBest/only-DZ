@@ -395,8 +395,8 @@ def save(figure):
 
 def main():
     try:
-        #manipulation(figures)
-        save()
+        manipulation(figures)
+
 
     except ValueError as e:
         print(e)

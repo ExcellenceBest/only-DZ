@@ -1,6 +1,6 @@
-Фигура:	<property object at 0x0000027BA4386ED0>
-Единицы измерения:	<property object at 0x0000027BA4386F20>
-Координаты левого верхнего угла:	<property object at 0x0000027BA4386F70>
-Радиус:	<property object at 0x0000027BA4386FC0>
+Фигура:	<property object at 0x000002CDBA886ED0>
+Единицы измерения:	<property object at 0x000002CDBA886F20>
+Координаты левого верхнего угла:	<property object at 0x000002CDBA886F70>
+Радиус:	<property object at 0x000002CDBA886FC0>
 Площадь фигуры:	(50, 2) См
 Периметр:	(25, 2) См

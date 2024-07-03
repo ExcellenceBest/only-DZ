@@ -1,7 +1,7 @@
-Фигура:	<property object at 0x0000027BA4386CF0>
-Единицы измерения:	<property object at 0x0000027BA4386D40>
-Координаты левого верхнего угла:	<property object at 0x0000027BA4386D90>
-Длина стороны A:	<property object at 0x0000027BA4386DE0>
-Длина стороны B:	<property object at 0x0000027BA4386E30>
+Фигура:	<property object at 0x000002CDBA886CF0>
+Единицы измерения:	<property object at 0x000002CDBA886D40>
+Координаты левого верхнего угла:	<property object at 0x000002CDBA886D90>
+Длина стороны A:	<property object at 0x000002CDBA886DE0>
+Длина стороны B:	<property object at 0x000002CDBA886E30>
 Площадь фигуры:	96 Кв. мм
 Периметр:	40 мм
