@@ -78,14 +78,23 @@ class Order:
 
 
 class RentCarService:
-    def __init__(self, car: Car):
-        self._cars = car
+    def __init__(self):
+        self.__cars: list[Car] = []
 
+    @property
+    def get_cars(self):
+        return self.__cars
 
+    @staticmethod
+    def search_car():
+        if len(RentCarService.get_cars) == 0:
+            return False
+        else:
+            return True
 
     @staticmethod
     def reservation_car(cars: list, client: Client):
-        if len(cars) == 0:
+        if not RentCarService.get_cars:
             print('Нет свободных авто!, попробуйте через 5 мин')
         else:
             order = Order(client, cars[0])
@@ -101,8 +110,9 @@ class CarPrintService:
 
 
 class CarInfoService:
-    def car_info(self, car: Car):
-        return self.car_info(car)
+    @staticmethod
+    def car_info(car: Car):
+        return Car.car_number
 
 
 class NotificationService(ABC):
@@ -135,4 +145,3 @@ def add_zakaz(client: Client, cars: list, type_message: str):
 
 add_zakaz(client1, cars, 'SMS')
 add_zakaz(client2, cars, 'Email')
-
