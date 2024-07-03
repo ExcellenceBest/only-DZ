@@ -89,5 +89,4 @@ def pay_client():
     print(cash)
     CashRegister.clear()
 
-
 pay_client()
