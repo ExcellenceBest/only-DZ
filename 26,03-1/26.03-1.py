@@ -246,15 +246,15 @@ class Circle(Shape):
         self.__radius = radius
 
     def area(self):
-        return f'{round(self.__radius ** 2 * pi), 2} {self.__unit_of_measurement}'
+        return f'{round(self.__radius ** 2 * pi)} {self.__unit_of_measurement}'
 
     def perimeter(self):
-        return f'{round(2 * pi * self.__radius), 2} {self.__unit_of_measurement}'
+        return f'{round(2 * pi * self.__radius)} {self.__unit_of_measurement}'
 
     def save(self):
         lst = [('Фигура', self.name), ('Единицы измерения', self.unit_of_measurement),
                ('Координаты левого верхнего угла', self.point_of_reference), ('Радиус', self.radius),
-               ('Площадь фигуры', self.area()), ('Периметр', self.perimeter())]
+               ('Площадь фигуры', self.area()), ('Длина окружности', self.perimeter())]
         doc1 = ''
         file = 'round.txt'
         for i in lst:
@@ -331,16 +331,16 @@ class Ellipse(Shape):
         self.__r2 = r2
 
     def area(self):
-        return f'{round(int(self.__r1) * int(self.__r2) * pi),2} Кв. {self.__unit_of_measurement}'
+        return f'{round(int(self.__r1) * int(self.__r2) * pi)} Кв.{self.__unit_of_measurement}'
 
     def perimeter(self) -> tuple:
-        return f'{float(round(2 * pi * sqrt(((int(self.__r1)**2) + (int(self.__r2)**2)/2)))), 2}{self.__unit_of_measurement}'
+        return f'{float(round(2 * pi * sqrt(((int(self.__r1)**2) + (int(self.__r2)**2)/2))))} {self.__unit_of_measurement}'
 
     def save(self):
         lst = [('Фигура', self.name), ('Единицы измерения', self.unit_of_measurement),
                ('Координаты левого верхнего угла описанного прямоугольника', self.point_of_reference),
                ('Первый радиус', self.r1), ('Второй радиус', self.r2),
-               ('Площадь фигуры', self.area()), ('Периметр', self.perimeter())]
+               ('Площадь фигуры', self.area()), ('Длина окружности', self.perimeter())]
         doc1 = ''
         file = 'ellipse.txt'
         for i in lst:
@@ -370,7 +370,7 @@ def manipulation(figure):
               f'Данные фигуры записаны в файл {i.save()}\n\n'
               f'Фигура загружена из файла.\n{i.load(str)}\n'
               f'Площадь равна: {i.load(str).area()}\n'
-              f'Периметр равен: {i.load(str).perimeter()}\n')
+              f'Периметр/Длина окружности равны: {i.load(str).perimeter()}\n')
 
 
 def main():
